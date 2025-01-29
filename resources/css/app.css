@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './soft-ui-dashboard-tailwind.css';
+@import './nucleo-svg.css';
+
+[x-cloak] {
+    display: none;
+}

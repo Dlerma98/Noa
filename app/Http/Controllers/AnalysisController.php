@@ -27,4 +27,10 @@ class AnalysisController extends Controller
         return view('analyses.show', compact('analysis'));
 
     }
+
+    public function create()
+    {
+        return view('analyses.create', ['post' => new Post()]);
+    }
+
 }

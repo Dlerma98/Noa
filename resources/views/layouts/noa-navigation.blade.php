@@ -114,7 +114,7 @@
         <a href="{{ route('analyses.index') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
             Análisis
         </a>
-       {{--}} @auth
+       {{--}} Esto debo de añadirlo mas adelante cuando se asocien los post a un usuario que los haya publicado @auth
             <a href="{{ route('posts.myposts') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
                 Mis Posts
             </a>

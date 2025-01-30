@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Analysis;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class AnalysisController extends Controller
@@ -18,5 +19,12 @@ class AnalysisController extends Controller
             ->paginate(10);
 
         return view('analyses.index', compact('analyses'));
+    }
+
+    public function show(Analysis $analysis)
+    {
+
+        return view('analyses.show', compact('analysis'));
+
     }
 }

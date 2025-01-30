@@ -1,27 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <link rel="icon" href="{{asset('images/Noa.png')}}" type="image/png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Noa blog de Videojuegos')</title>
-    @vite('resources/css/app.css')
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title></title>
+
+    <meta name="description" content="">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100 text-gray-800">
-<header class="bg-white mx-auto shadow-md">
-    <div class="container p-4 text-center  flex justify-center items-center">
-        <a href="{{ url('/') }}" class="text-xl mx-auto font-bold text-indigo-600">
-           <img class="w-20 h-20 mx-auto rounded-full" alt="logo" src="{{asset('images/Noa.png')}}"/> Noa blog de Videojuegos
-        </a>
-    </div>
-</header>
+<body class="font-sans antialiased">
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    @include('layouts.navigation')
 
-<main class="container mx-auto py-8">
-    @yield('content')
-</main>
+    <!-- Page Heading -->
+    @isset($header)
+        <header class="bg-white dark:bg-gray-800 shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                {{ $header }}
+            </div>
+        </header>
+    @endisset
 
-<footer class="bg-gray-800 text-white text-center py-4">
-    © {{ date('Y') }} Noa. Todos los derechos reservados.
-</footer>
+    <!-- Page Content -->
+    <main>
+        {{ $slot }}
+    </main>
+</div>
 </body>
 </html>

@@ -30,7 +30,7 @@ class AnalysisController extends Controller
 
     public function create()
     {
-        return view('analyses.create', ['post' => new Post()]);
+        return view('analyses.create', ['analysis' => new Analysis()]);
     }
 
 }

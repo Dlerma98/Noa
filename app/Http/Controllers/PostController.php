@@ -32,7 +32,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-   
+
         return view('posts.show', compact('post'));
 
     }
@@ -75,7 +75,7 @@ class PostController extends Controller
         return to_route('posts.index')->with('status', 'Post deleted successfully!');
     }
 
-    public function myposts() {
+    public function myPosts() {
         $posts = Post::where('user_id', auth()->user()->id)->get();
         return view('posts.myposts', compact('posts'));
     }

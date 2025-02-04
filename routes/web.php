@@ -12,6 +12,8 @@ Route::get('/', [PostController::class, 'index'])->name('posts.index');
 Route::resource('noa', PostController::class)
     ->names('posts')
     ->parameters(['noa' => 'post']);
+Route::get("noa/myposts", [PostController::class, 'myPosts'])->name('myposts');
+
 
 // Rutas para Análisis
 Route::resource('analyses', AnalysisController::class)
@@ -24,6 +26,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    Route::get("noa/myposts", [PostController::class, 'myPosts'])->name('posts.myposts');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

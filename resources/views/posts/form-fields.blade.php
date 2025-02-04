@@ -20,6 +20,7 @@
     <x-input-error :messages="$errors->get('body')" class="mt-2"/>
 </div>
 
+{{--}}
 <div>
     <x-input-label for="category_id" :value="__('Category')" />
     <select name="category_id" id="category_id" class="w-full mt-1 block">
@@ -33,3 +34,4 @@
     </select>
     <x-input-error :messages="$errors->get('category_id')" class="mt-2"/>
 </div>
+--}}

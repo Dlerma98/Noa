@@ -12,7 +12,7 @@ Route::get('/', [PostController::class, 'index'])->name('posts.index');
 Route::resource('noa', PostController::class)
     ->names('posts')
     ->parameters(['noa' => 'post']);
-Route::get("noa/myposts", [PostController::class, 'myPosts'])->name('myposts');
+Route::get("posts/myposts", [PostController::class, 'myPosts'])->name('posts.myposts');
 
 
 // Rutas para Análisis
@@ -26,13 +26,16 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get("noa/myposts", [PostController::class, 'myPosts'])->name('posts.myposts');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
     // CRUD completo de análisis, pero protegido para usuarios autenticados
     Route::resource('analyses', AnalysisController::class)->except(['index', 'show']);
+
+    Route::get("post/myposts", [PostController::class, 'myPosts'])
+        ->middleware('auth')
+        ->name('post.myposts');
 
     // Rutas del perfil de usuario (solución a Route [profile.edit] not defined)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

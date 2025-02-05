@@ -32,12 +32,17 @@
             </div>
         @endauth
 
-        <div>
+        <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($posts as $post)
-                <div class="mt-5 bg-red-600 rounded p-4">
-                    <h2 class="text-2xl font-semibold">{{ $post->title }}</h2>
-                    <p class="text-gray-600 mb-4">{{ $post->excerpt }}</p>
-                    <a href="{{ route('posts.show', $post) }}" class="text-indigo-500 font-medium hover:underline">Leer más</a>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                    <div class="p-5">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ $post->title }}</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $post->excerpt }}</p>
+                        <a href="{{ route('posts.show', $post) }}"
+                           class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition">
+                            Leer más
+                        </a>
+                    </div>
                 </div>
             @endforeach
         </div>

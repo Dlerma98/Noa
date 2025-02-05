@@ -13,7 +13,7 @@
                           class="space-y-4 max-w-xl"
                     >
                         @include("posts.form-fields")
-                        <div>
+                       {{--}} <div>
                             <x-input-label for="published_at" :value="__('Published At')" />
                             <x-text-input id="published_at"
                                           type="datetime-local"
@@ -22,6 +22,7 @@
                                           class="w-full mt-1 block" />
                             <x-input-error :messages="$errors->get('published_at')" class="mt-2" />
                         </div>
+                        --}}
                         <x-primary-button type="submit" class="mt-4">{{__('Save')}}</x-primary-button>
                     @csrf
                 </div>

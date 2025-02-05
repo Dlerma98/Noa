@@ -11,15 +11,28 @@
     <x-input-error :messages="$errors->get('title')" class="mt-2"/>
 </div>
 
+
 <div>
-    <x-input-label for="body" :value="__('Body')" />
-    <x-textarea id="body"
-                name="body"
-                class="w-full mt-1 block"
-    >{{ old('body', $post->body) }}</x-textarea>
-    <x-input-error :messages="$errors->get('body')" class="mt-2"/>
+    <x-input-label for="excerpt" :value="__('excerpt')"/>
+    <x-text-input id="excerpt"
+                  name="excerpt"
+                  type="text"
+                  value="{{old('excerpt' , $post->excerpt)}}"
+                  class="w-full mt-1 block"
+    />
+    <x-input-error :messages="$errors->get('excerpt')" class="mt-2"/>
 </div>
 
+<div>
+    <x-input-label for="content" :value="__('content')" />
+    <x-textarea id="content"
+                name="content"
+                class="w-full mt-1 block"
+    >{{ old('content', $post->content) }}</x-textarea>
+    <x-input-error :messages="$errors->get('content')" class="mt-2"/>
+</div>
+
+{{--AÑADIR CATEGORIAS A LOS POST MAS ADELANTE--}}
 {{--}}
 <div>
     <x-input-label for="category_id" :value="__('Category')" />

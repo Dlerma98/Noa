@@ -70,6 +70,9 @@
             <a href="{{ route('posts.myposts') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
                 Mis Posts
             </a>
+            <a href="{{ route('analyses.myanalyses') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
+                Mis Análisis
+            </a>
         @endauth
     </div>
 </header>

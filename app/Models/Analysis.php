@@ -10,6 +10,12 @@ class Analysis extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'content', 'genre', 'console', 'type',
+        'title', 'user_id', 'content', 'genre', 'console', 'type',
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

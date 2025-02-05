@@ -33,4 +33,10 @@ class AnalysisController extends Controller
         return view('analyses.create', ['analysis' => new Analysis()]);
     }
 
+
+    public function myAnalyses() {
+        $analyses = Analysis::where('user_id', auth()->user()->id)->get();
+        return view('analyses.myanalyses', compact('analyses'));
+    }
+
 }

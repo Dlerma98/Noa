@@ -19,6 +19,7 @@ Route::get("posts/myposts", [PostController::class, 'myPosts'])->name('posts.myp
 Route::resource('analyses', AnalysisController::class)
     ->names('analyses')
     ->parameters(['analyses' => 'analysis']);
+Route::get("analyses/myanalyses", [AnalysisController::class, 'myAnalyses'])->name('analyses.myanalyses');
 
 // Grupo de rutas protegidas para usuarios autenticados
 Route::middleware([
@@ -30,12 +31,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    // CRUD completo de análisis, pero protegido para usuarios autenticados
-    Route::resource('analyses', AnalysisController::class)->except(['index', 'show']);
-
     Route::get("post/myposts", [PostController::class, 'myPosts'])
         ->middleware('auth')
         ->name('post.myposts');
+
+    Route::get("analyses/analyses", [AnalysisController::class, 'myAnalyses'])->name('analyses.analyses');
+
+    // CRUD completo de análisis, pero protegido para usuarios autenticados
+    Route::resource('analyses', AnalysisController::class)->except(['index', 'show']);
+
 
     // Rutas del perfil de usuario (solución a Route [profile.edit] not defined)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

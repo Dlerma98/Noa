@@ -44,7 +44,7 @@ Route::middleware([
     // Rutas del perfil de usuario (solución a Route [profile.edit] not defined)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile', [ProfileController::class, 'logout'])->name('profile.logout');
 });
 
 // Logout (ya incluido en Jetstream, pero si necesitas llamarlo explícitamente)

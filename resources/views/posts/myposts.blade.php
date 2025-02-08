@@ -37,6 +37,9 @@
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
                     <div class="p-5">
                         <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ $post->title }}</h2>
+                        @if($post->thumbnail)
+                        <img src="{{ asset('storage/' . $post->thumbnail) }}" class="w-32 h-32 rounded-lg shadow-md mb-4">
+                        @endif
                         <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $post->category}}</p>
                         <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $post->excerpt }}</p>
                         <a href="{{ route('posts.show', $post) }}"

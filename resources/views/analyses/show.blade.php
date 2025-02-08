@@ -37,6 +37,9 @@
             <h2 class="text-2xl font-semibold leading-tight text-slate-800 dark:text-slate-200 md:text-4xl">
                 {{ $analysis->title }}
             </h2>
+            @if($analysis->thumbnail)
+                <img src="{{ asset('storage/' . $analysis->thumbnail) }}" class="w-32 h-32 rounded-lg shadow-md mb-4">
+            @endif
         </div>
 
         <div class="prose prose-slate mx-auto mt-6 dark:prose-invert lg:prose-xl">

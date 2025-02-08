@@ -28,9 +28,9 @@ class PostFactory extends Factory
             ];
 
         return [
-            'user_id' => User::factory(),
+            'user_id' => User::factory()->create()->id,
             'title' => $this->faker->paragraph, // Genera un título aleatorio
-            'thumbnail' => $this->faker->randomElement->$images,// URL de imagen aleatoria
+            'thumbnail' => $this->faker->randomElement($images),// URL de imagen aleatoria
             'excerpt' => $this->faker->paragraph, // Resumen aleatorio
             'content' => $this->faker->text(1000), // Contenido más largo
             'category' => $this->faker->randomElement(['PlayStation', 'Xbox', 'PC', 'Switch']), // Categoría aleatoria

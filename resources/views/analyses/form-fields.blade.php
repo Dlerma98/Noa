@@ -13,13 +13,11 @@
 
 
 <div>
-    <x-input-label for="content" :value="__('Content')"/>
-    <x-text-input id="content"
-                  name="content"
-                  type="text"
-                  value="{{old('content' , $analysis->content)}}"
-                  class="w-full mt-1 block"
-    />
+    <x-input-label for="content" :value="__('content')" />
+    <x-textarea id="content"
+                name="content"
+                class="w-full mt-1 block"
+    >{{ old('content', $analysis->content) }}</x-textarea>
     <x-input-error :messages="$errors->get('content')" class="mt-2"/>
 </div>
 

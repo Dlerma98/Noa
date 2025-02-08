@@ -10,7 +10,7 @@ class Analysis extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'user_id', 'content','console', 'type', 'score',
+        'title', 'user_id', 'content','console', 'type', 'score','thumbnail'
     ];
 
 

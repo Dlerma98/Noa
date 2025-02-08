@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('analyses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
             $table->string('title'); // Título del análisis
+            $table->string('thumbnail')->nullable();
             $table->text('content'); // Contenido del análisis
             $table->unsignedTinyInteger('score'); // Puntuación (1 a 10)
             $table->enum('console', ['PlayStation', 'Xbox', 'PC', 'Switch'])->nullable(); // Consola (opcional)

@@ -25,6 +25,11 @@
                    class="px-3 py-2 {{ request()->routeIs('posts.myposts') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
                     Mis Posts
                 </a>
+
+                <a href="{{ route('analysis.myanalyses') }}"
+                   class="px-3 py-2 {{ request()->routeIs('analysis.myanalyses') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
+                   Mis Analisis
+                </a>
             @endauth
 
         </div>
@@ -71,7 +76,7 @@
             <a href="{{ route('posts.myposts') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
                 Mis Posts
             </a>
-            <a href="{{ route('analyses.myanalyses') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
+            <a href="{{ route('analysis.myanalyses') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
                 Mis Análisis
             </a>
         @endauth

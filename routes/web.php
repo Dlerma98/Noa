@@ -19,7 +19,7 @@ Route::get("posts/myposts", [PostController::class, 'myPosts'])->name('posts.myp
 Route::resource('analyses', AnalysisController::class)
     ->names('analyses')
     ->parameters(['analyses' => 'analysis']);
-Route::get("analyses/myanalyses", [AnalysisController::class, 'myAnalyses'])->name('analyses.myanalyses');
+Route::get("analysis/myanalyses", [AnalysisController::class, 'myAnalyses'])->name('analysis.myanalyses');
 
 // Grupo de rutas protegidas para usuarios autenticados
 Route::middleware([
@@ -35,7 +35,7 @@ Route::middleware([
         ->middleware('auth')
         ->name('post.myposts');
 
-    Route::get("analyses/analyses", [AnalysisController::class, 'myAnalyses'])->name('analyses.analyses');
+    Route::get("analysis/myanalyses", [AnalysisController::class, 'myAnalyses'])->name('analysis.myanalyses');
 
     // CRUD completo de análisis, pero protegido para usuarios autenticados
     Route::resource('analyses', AnalysisController::class)->except(['index', 'show']);

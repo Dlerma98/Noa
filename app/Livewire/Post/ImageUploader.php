@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Post;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -34,6 +34,6 @@ class ImageUploader extends Component
 
     public function render()
     {
-        return view('livewire.image-uploader');
+        return view('livewire.post.image-uploader');
     }
 }

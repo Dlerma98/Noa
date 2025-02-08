@@ -4,7 +4,12 @@
 
 @section('content')
     <div class="container mx-auto py-10">
-        <h1 class="text-4xl font-bold mb-6 text-center">Listado de Noticias</h1>
+        @if($posts->isEmpty())
+            <h1 class="text-4xl font-bold mb-6 text-center">No hay Posts disponibles.</h1>
+        @else
+            <div class="container mx-auto py-10">
+                <h1 class="text-4xl font-bold mb-6 text-center">Listado de mis noticias</h1>
+                @endif
 
         @auth
             <div class="flex items-center justify-center">

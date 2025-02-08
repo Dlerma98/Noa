@@ -1,4 +1,4 @@
-<x-noa-layout :meta-title="$post->title" :meta-description="$post->body">
+<x-app-layout :meta-title="$post->title" :meta-description="$post->content">
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -16,6 +16,15 @@
 
                         @include("posts.form-fields")
 
+                        <div class="mt-4">
+                            <x-input-label for="thumbnail" :value="__('Thumbnail')" />
+
+                            <!-- Llamamos al componente de Livewire -->
+                            @livewire('image-uploader', ['post' => $post])
+
+                            <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
+                        </div>
+
                         <x-primary-button type="submit" class="mt-4">{{__('Save')}}</x-primary-button>
 
                         @csrf
@@ -28,4 +37,4 @@
     </div>
 
 
-</x-noa-layout>
+</x-app-layout>

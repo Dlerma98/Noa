@@ -42,16 +42,20 @@ class PostController extends Controller
         return view('posts.create', ['post' => new Post()]);
     }
 
-    public  function store(StorePostRequest $request)
+    public function store(StorePostRequest $request)
     {
+        // Validar los datos sin la imagen
         $data = $request->validated();
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = auth()->id();
+        $data['thumbnail'] = null; // Se actualizará después con Livewire
 
-        Post::create($data);
+        // Crear el post sin imagen
+        $post = Post::create($data);
 
-        return to_route('posts.index')->with('status', 'Post created successfully!');
-
+        // Redirigir a la página de edición para que el usuario suba la imagen con Livewire
+        return redirect()->route('posts.edit', $post->id)->with('status', 'Post creado con éxito. Ahora sube una imagen.');
     }
+
 
 
     public function edit(Post $post)

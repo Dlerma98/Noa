@@ -57,13 +57,3 @@
     <x-input-error :messages="$errors->get('type')" class="mt-2"/>
 </div>
 
-<div class="mt-4">
-    <x-input-label for="thumbnail" :value="__('Thumbnail')" />
-    <input type="file" wire:model="thumbnail" class="w-full mt-1 block">
-
-    @if ($post->thumbnail)
-        <img src="{{ $post->thumbnail->temporaryUrl() }}" class="mt-2 w-32 h-32 rounded-lg shadow-md">
-    @endif
-    <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
-</div>
-

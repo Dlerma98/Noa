@@ -3,12 +3,22 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Livewire\WithFileUploads;
 
-class StorePostRequest extends FormRequest
+class UpdatePostRequest extends FormRequest
 {
-    use WithFileUploads; // Para que funcione con Livewire
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
     public function rules(): array
     {
         return [
@@ -40,12 +50,10 @@ class StorePostRequest extends FormRequest
 
             'type.required' => 'El tipo es obligatorio.',
             'type.in' => 'El tipo debe ser Exclusive o Multiplatform.',
+
+            'thumbnail.image' => 'El archivo debe ser una imagen.',
+            'thumbnail.mimes' => 'El formato de imagen debe ser jpeg, png, jpg, gif o webp.',
+            'thumbnail.max' => 'El tamaño de la imagen no puede superar los 2MB.',
         ];
     }
-
-    public function authorize(): bool
-    {
-        return true;
-    }
 }
-

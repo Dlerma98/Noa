@@ -43,6 +43,7 @@
 
         <div class="prose prose-slate mx-auto mt-6 dark:prose-invert lg:prose-xl">
             <p>{{ $post->content }}</p>
+            <p>Autor: {{$post->user->name}}</p>
         </div>
     </article>
 @endsection

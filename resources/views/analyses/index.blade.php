@@ -43,8 +43,9 @@
                             @if($analysis->thumbnail)
                                 <img src="{{ asset('storage/' . $analysis->thumbnail) }}" class="w-32 h-32 rounded-lg shadow-md mb-4">
                             @endif
-                            <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $analysis->console }}</p>
-                            <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $analysis->type }}</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Redactor: {{ $analysis->user->name }}</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Consola: {{ $analysis->console }}</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Tipo de analisis: {{ $analysis->type }}</p>
                             <a href="{{ route('analyses.show', $analysis) }}"
                                class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition">
                                 Leer más

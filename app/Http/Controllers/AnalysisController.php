@@ -69,4 +69,10 @@ class AnalysisController extends Controller
 
     }
 
+    public function destroy(Analysis $analysis)
+    {
+        $analysis -> delete();
+        return redirect()->route('analyses.index')->with('status', 'Analysis deleted successfully!');
+    }
+
 }

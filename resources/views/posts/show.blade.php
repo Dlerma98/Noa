@@ -33,6 +33,8 @@
             @endif
         @endauth
 
+            <img src="{{ asset('storage/' . $post->thumbnail) }}" class="w-32 h-32 rounded-lg shadow-md mb-4">
+
         <div class="flex-1 space-y-3 pt-4 md:text-center">
             <h2 class="text-2xl font-semibold leading-tight text-slate-800 dark:text-slate-200 md:text-4xl">
                 {{ $post->title }}

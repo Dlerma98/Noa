@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Analysis\StoreAnalysisRequest;
 use App\Models\Analysis;
-use App\Models\Post;
 use Illuminate\Http\Request;
 
 class AnalysisController extends Controller
@@ -31,6 +31,16 @@ class AnalysisController extends Controller
     public function create()
     {
         return view('analyses.create', ['analysis' => new Analysis()]);
+    }
+
+    public function store(StoreAnalysisRequest $request)
+    {
+        $data = $request->validated();
+
+        Analysis::create($data);
+
+        // Redirigir a la página de edición para que el usuario suba la imagen con Livewire
+        return redirect()->route('analyses.index')->with('status', 'Post creado con éxito. Ahora sube una imagen.');
     }
 
 

@@ -19,8 +19,7 @@ class AnalysisFactory extends Factory
         return [
             'title' => fake()->sentence,
             'content' => fake()->paragraphs(3, true),
-            'score' => fake()->numberBetween(1, 10),
-            'genre' => fake()->randomElement(['Action', 'Adventure', 'Sports', 'RPG']),
+            'score' => fake()->numberBetween(0, 100),
             'console' => fake()->randomElement(['PlayStation', 'Xbox', 'PC', 'Switch']),
             'type' => fake()->randomElement(['Review', 'Retro', 'News']),
             'created_at' => now(),

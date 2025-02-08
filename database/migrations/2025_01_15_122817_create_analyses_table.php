@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('title'); // Título del análisis
             $table->text('content'); // Contenido del análisis
             $table->unsignedTinyInteger('score'); // Puntuación (1 a 10)
-            $table->string('genre'); // Género del videojuego (acción, aventura, etc.)
             $table->enum('console', ['PlayStation', 'Xbox', 'PC', 'Switch'])->nullable(); // Consola (opcional)
             $table->enum('type', ['Review', 'Retro', 'News'])->default('Review'); // Tipo de análisis
             $table->timestamps(); // created_at y updated_at

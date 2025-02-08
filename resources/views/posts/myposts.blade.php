@@ -1,6 +1,6 @@
 @extends('layouts.noa-layout')
 
-@section('title', 'Listado de Posts')
+@section('title', 'Listado de Mis Posts - Noa')
 
 @section('content')
     <div class="container mx-auto py-10">
@@ -37,6 +37,7 @@
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
                     <div class="p-5">
                         <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ $post->title }}</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $post->category}}</p>
                         <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $post->excerpt }}</p>
                         <a href="{{ route('posts.show', $post) }}"
                            class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition">

@@ -8,3 +8,15 @@
 [x-cloak] {
     display: none;
 }
+
+@keyframes color-change {
+    0% { color: #f472b6; } /* Rosa */
+    25% { color: #38bdf8; } /* Azul */
+    50% { color: #34d399; } /* verde */
+    75% { color: #facc15; } /* Amarillo */
+    100% { color: #f472b6; } /* Rosa */
+}
+
+.animate-color-change {
+    animation: color-change 4s infinite alternate ease-in-out;
+}

@@ -24,7 +24,7 @@ class PostController extends Controller
         }
 
         // Obtener los posts ordenados
-        $posts = $posts->orderBy('created_at', 'desc')->paginate(10);
+        $posts = $posts->orderBy('created_at', 'desc')->paginate(12);
 
         return view('posts.index', compact('posts'));
     }

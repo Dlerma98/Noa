@@ -12,6 +12,9 @@ class StorePostRequest extends FormRequest
             'title'=>'required|min:10',
             'excerpt'=>'required|min:10',
             'content'=>'required|min:30',
+            'category'=>'required',
+            'type'=>'required',
+            'thumbnail'=>'nullable|image|max:2048',
 
         ];
     }

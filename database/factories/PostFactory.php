@@ -20,10 +20,12 @@ class PostFactory extends Factory
     public function definition(): array
     {
 
+        $images = ["noa.png","logo.png"];
+
         return [
             'user_id' => User::factory(),
             'title' => $this->faker->paragraph, // Genera un título aleatorio
-            'thumbnail' => $this->faker->imageUrl(640, 480, 'video games', true), // URL de imagen aleatoria
+            'thumbnail' => $this->faker->randomElement->$images,// URL de imagen aleatoria
             'excerpt' => $this->faker->paragraph, // Resumen aleatorio
             'content' => $this->faker->text(1000), // Contenido más largo
             'category' => $this->faker->randomElement(['PlayStation', 'Xbox', 'PC', 'Switch']), // Categoría aleatoria

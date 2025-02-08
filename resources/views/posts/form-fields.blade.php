@@ -32,19 +32,38 @@
     <x-input-error :messages="$errors->get('content')" class="mt-2"/>
 </div>
 
-{{--AÑADIR CATEGORIAS A LOS POST MAS ADELANTE--}}
-{{--}}
 <div>
-    <x-input-label for="category_id" :value="__('Category')" />
-    <select name="category_id" id="category_id" class="w-full mt-1 block">
-        <option value="" disabled selected>Choose a category</option>
-        @foreach($categories as $category)
-            <option value="{{ $category->id }}"
-                {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>
-                {{ $category->name }}
+    <x-input-label for="category" :value="__('Category')"/>
+    <select id="category" name="category" class="w-full mt-1 block border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200">
+        @foreach(['PlayStation', 'Xbox', 'PC', 'Switch'] as $category)
+            <option value="{{ $category }}" {{ old('category', $post->category) == $category ? 'selected' : '' }}>
+                {{ $category }}
             </option>
         @endforeach
     </select>
-    <x-input-error :messages="$errors->get('category_id')" class="mt-2"/>
+    <x-input-error :messages="$errors->get('category')" class="mt-2"/>
 </div>
---}}
+
+
+<div>
+    <x-input-label for="type" :value="__('Type')"/>
+    <select id="type" name="type" class="w-full mt-1 block border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200">
+        @foreach(['Exclusive', 'Multiplatform'] as $type)
+            <option value="{{ $type }}" {{ old('type', $post->type) == $type ? 'selected' : '' }}>
+                {{ $type }}
+            </option>
+        @endforeach
+    </select>
+    <x-input-error :messages="$errors->get('type')" class="mt-2"/>
+</div>
+
+<div class="mt-4">
+    <x-input-label for="thumbnail" :value="__('Thumbnail')" />
+    <input type="file" wire:model="thumbnail" class="w-full mt-1 block">
+
+    @if ($post->thumbnail)
+        <img src="{{ $post->thumbnail->temporaryUrl() }}" class="mt-2 w-32 h-32 rounded-lg shadow-md">
+    @endif
+    <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
+</div>
+

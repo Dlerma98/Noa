@@ -1,6 +1,6 @@
 @extends('layouts.noa-layout')
 
-@section('title', 'Análisis de Videojuegos')
+@section('title', 'Análisis de Videojuegos - Noa')
 
 @section('content')
     <div class="container mx-auto py-10">

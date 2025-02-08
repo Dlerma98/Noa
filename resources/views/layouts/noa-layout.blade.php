@@ -8,13 +8,16 @@
     <link rel="icon" href="{{ asset('images/Noa.png') }}" type="image/png">
     @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-100 text-gray-800">
-<header class="bg-white mx-auto shadow-md">
+<body class="bg-gray-50 text-gray-900">
+<header class="bg-gradient-to-r from-purple-600 to-indigo-500 mx-auto shadow-lg">
     <div class="container p-4 text-center flex justify-center items-center">
-        <a href="{{ url('/') }}" class="text-xl mx-auto font-bold text-indigo-600">
-            <img class="w-20 h-20 mx-auto rounded-full" alt="logo" src="{{ asset('images/Noa.png') }}" />
-            Noa blog de Videojuegos
+        <a href="{{ url('/') }}" class="text-xl mx-auto font-bold text-white flex flex-col items-center">
+            <img class="w-20 h-20 mx-auto rounded-full shadow-md" alt="logo" src="{{ asset('images/Noa.png') }}" />
+            <span class="animate-color-change transition-transform duration-300 hover:scale-110">
+        Noa blog de Videojuegos
+    </span>
         </a>
+
     </div>
 </header>
 
@@ -24,9 +27,8 @@
     @yield('content')
 </main>
 
-<footer class="bg-gray-800 text-white text-center py-4">
+<footer class="bg-gray-900 text-gray-300 text-center py-4">
     © {{ date('Y') }} Noa. Todos los derechos reservados.
 </footer>
 </body>
 </html>
-

@@ -20,6 +20,11 @@
                 Análisis
             </a>
 
+            <a href="{{ route('genres.index') }}"
+               class="px-3 py-2 {{ request()->routeIs('genres.index') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
+                Generos
+            </a>
+
             @auth
                 <a href="{{ route('posts.myposts') }}"
                    class="px-3 py-2 {{ request()->routeIs('posts.myposts') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
@@ -71,6 +76,11 @@
         </a>
         <a href="{{ route('analyses.index') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
             Análisis
+        </a>
+
+        <a href="{{ route('genres.index') }}"
+           class="px-3 py-2 {{ request()->routeIs('genres.index') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
+            Generos
         </a>
       @auth
             <a href="{{ route('posts.myposts') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">

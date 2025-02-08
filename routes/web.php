@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnalysisController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,17 @@ Route::resource('analyses', AnalysisController::class)
     ->names('analyses')
     ->parameters(['analyses' => 'analysis']);
 Route::get("analysis/myanalyses", [AnalysisController::class, 'myAnalyses'])->name('analysis.myanalyses');
+
+
+
+
+
+// Rutas para Generos
+Route::resource('genres', GenreController::class)
+    ->names('genres')
+    ->parameters(['genres' => 'genre']);
+
+
 
 // Grupo de rutas protegidas para usuarios autenticados
 Route::middleware([

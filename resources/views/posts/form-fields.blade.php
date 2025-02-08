@@ -24,7 +24,7 @@
 </div>
 
 <div>
-    <x-input-label for="content" :value="__('content')" />
+    <x-input-label for="content" :value="__('content')"/>
     <x-textarea id="content"
                 name="content"
                 class="w-full mt-1 block"
@@ -34,7 +34,8 @@
 
 <div>
     <x-input-label for="category" :value="__('Category')"/>
-    <select id="category" name="category" class="w-full mt-1 block border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200">
+    <select id="category" name="category"
+            class="w-full mt-1 block border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200">
         @foreach(['PlayStation', 'Xbox', 'PC', 'Switch'] as $category)
             <option value="{{ $category }}" {{ old('category', $post->category) == $category ? 'selected' : '' }}>
                 {{ $category }}
@@ -47,7 +48,8 @@
 
 <div>
     <x-input-label for="type" :value="__('Type')"/>
-    <select id="type" name="type" class="w-full mt-1 block border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200">
+    <select id="type" name="type"
+            class="w-full mt-1 block border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200">
         @foreach(['Exclusive', 'Multiplatform'] as $type)
             <option value="{{ $type }}" {{ old('type', $post->type) == $type ? 'selected' : '' }}>
                 {{ $type }}

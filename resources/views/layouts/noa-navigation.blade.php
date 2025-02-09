@@ -22,7 +22,7 @@
 
             <a href="{{ route('genres.index') }}"
                class="px-3 py-2 {{ request()->routeIs('genres.index') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
-                Generos
+                Géneros
             </a>
 
             @auth
@@ -33,41 +33,40 @@
 
                 <a href="{{ route('analysis.myanalyses') }}"
                    class="px-3 py-2 {{ request()->routeIs('analysis.myanalyses') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
-                   Mis Analisis
+                    Mis Análisis
                 </a>
             @endauth
-
         </div>
 
-        @auth
-            <div class="flex justify-end">
-                    <a href="{{ route('profile.show') }}"
-                       class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                        Perfil
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit"
-                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                            Cerrar sesión
-                        </button>
-                    </form>
-            </div>
+        <!-- Botones de usuario -->
+        <div class="flex items-center space-x-4">
+            @auth
+                <a href="{{ route('profile.show') }}"
+                   class="px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    Perfil
+                </a>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                            class="px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        Cerrar sesión
+                    </button>
+                </form>
             @endauth
 
             @guest
-            <div class="flex justify-end">
                 <a href="{{ route('login') }}"
-                   class="px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                   class="px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">
                     Iniciar sesión
                 </a>
                 <a href="{{ route('register') }}"
-                   class="px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                   class="px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">
                     Registrarse
                 </a>
-            </div>
             @endguest
         </div>
+    </div>
 
     <!-- Menú móvil -->
     <div x-show="mobileMenu" @click.away="mobileMenu = false" class="md:hidden">
@@ -77,18 +76,38 @@
         <a href="{{ route('analyses.index') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
             Análisis
         </a>
-
-        <a href="{{ route('genres.index') }}"
-           class="px-3 py-2 {{ request()->routeIs('genres.index') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
-            Generos
+        <a href="{{ route('genres.index') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
+            Géneros
         </a>
-      @auth
+
+        @auth
             <a href="{{ route('posts.myposts') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
                 Mis Posts
             </a>
             <a href="{{ route('analysis.myanalyses') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
                 Mis Análisis
             </a>
+
+            <a href="{{ route('profile.show') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
+                Perfil
+            </a>
+
+            <form method="POST" action="{{ route('logout') }}" class="block">
+                @csrf
+                <button type="submit" class="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    Cerrar sesión
+                </button>
+            </form>
         @endauth
+
+        @guest
+            <a href="{{ route('login') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
+                Iniciar sesión
+            </a>
+            <a href="{{ route('register') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
+                Registrarse
+            </a>
+        @endguest
     </div>
 </header>
+

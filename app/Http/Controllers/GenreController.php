@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreGenreRequest;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 
@@ -16,16 +17,14 @@ class GenreController extends Controller
 
     public function create()
     {
-        return view('genres.create');
+        return view('genres.create' ,['genre'=> new Genre()]);
     }
 
-    public function store(Request $request)
+    public function store(StoreGenreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|unique:genres|max:255',
-        ]);
 
-        Genre::create($request->all());
+       $data = $request->validated();
+       $genre = Genre::create($data);
 
         return redirect()->route('genres.index')->with('success', 'Género creado con éxito.');
     }

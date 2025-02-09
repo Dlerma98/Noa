@@ -13,7 +13,7 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -34,6 +34,8 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'phone'=>['required','numeric','digits:9'],
+            'birthdate'=>['required','date'],
         ];
     }
 }

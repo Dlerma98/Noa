@@ -45,6 +45,7 @@
                         @if($post->thumbnail)
                             <img src="{{ asset('storage/' . $post->thumbnail) }}" class="w-32 h-32 rounded-lg shadow-md mb-4">
                         @endif
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Genero: {{ $post->genre->name }}</p>
                         <p class="text-gray-600 dark:text-gray-300 mb-4">Redactor: {{ $post->user->name }}</p>
                         <p class="text-gray-600 dark:text-gray-300 mb-4">Categoría: {{ $post->category }}</p>
                         <p class="text-gray-600 dark:text-gray-300 mb-4">{{ $post->excerpt }}</p>

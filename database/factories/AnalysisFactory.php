@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,6 +29,7 @@ class AnalysisFactory extends Factory
 
         return [
             'user_id' => User::factory()->create()->id,
+            'genre_id' => Genre::factory()->create()->id,
             'title' => fake()->sentence,
             'thumbnail' => $this->faker->randomElement($images),// URL de imagen aleatoria
             'content' => fake()->paragraphs(3, true),

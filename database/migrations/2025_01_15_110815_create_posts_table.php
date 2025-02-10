@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('genre_id')->constrained('genres')->onDelete('cascade');
             $table->string('title'); // Título del post
             $table->string('thumbnail')->nullable(); // URL de la miniatura
             $table->text('excerpt'); // Resumen del contenido

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Genre;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -29,6 +30,7 @@ class PostFactory extends Factory
 
         return [
             'user_id' => User::factory()->create()->id,
+            'genre_id' => Genre::factory()->create()->id,
             'title' => $this->faker->paragraph, // Genera un título aleatorio
             'thumbnail' => $this->faker->randomElement($images),// URL de imagen aleatoria
             'excerpt' => $this->faker->paragraph, // Resumen aleatorio

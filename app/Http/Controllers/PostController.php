@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
+use App\Models\Genre;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,11 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create', ['post' => new Post()]);
+        $genres = Genre::all();
+        return view('posts.create', [
+            'genres' => $genres,
+            'post' => new Post()
+        ]);
     }
 
     public function store(StorePostRequest $request)
@@ -60,7 +65,8 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $genres = Genre::all();
+        return view('posts.edit', compact('post','genres'));
     }
 
     public function update(UpdatePostRequest $request, Post $post)

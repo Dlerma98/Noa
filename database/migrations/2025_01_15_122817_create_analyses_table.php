@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('analyses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('genre_id')->constrained('genres')->onDelete('cascade');
             $table->string('title'); // Título del análisis
             $table->string('thumbnail')->nullable();
             $table->text('content'); // Contenido del análisis

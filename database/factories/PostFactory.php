@@ -21,12 +21,13 @@ class PostFactory extends Factory
     public function definition(): array
     {
 
-        $images = ["4EzBIhvoLMr5NVu9OBipKLpZO8ZnbP1dfzhbxnXV.png",
-            "b1FVGJo3kGPwaMFOxf4sgHGrBDfYBUppcxWW9uuT.png",
-            "Hi6xjjy0dJJC7vigSpMRJOLTq638RW7o8JnaS4fs.png",
-            "iABzoGvt1bBCyxZOp1eksPAVgM3FImte1V2a14vm.png",
-            "LOJVJ8Q29PV1dZ44fX76c8zfNFxR3VG0mXQr67R3.jpg",
-            ];
+        $images = [
+            "thumbnails/4EzBIhvoLMr5NVu9OBipKLpZO8ZnbP1dfzhbxnXV.png",
+            "thumbnails/b1FVGJo3kGPwaMFOxf4sgHGrBDfYBUppcxWW9uuT.png",
+            "thumbnails/Hi6xjjy0dJJC7vigSpMRJOLTq638RW7o8JnaS4fs.png",
+            "thumbnails/iABzoGvt1bBCyxZOp1eksPAVgM3FImte1V2a14vm.png",
+            "thumbnails/LOJVJ8Q29PV1dZ44fX76c8zfNFxR3VG0mXQr67R3.jpg",
+        ];
 
         return [
             'user_id' => User::factory()->create()->id,

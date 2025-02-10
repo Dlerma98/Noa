@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Genre;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class GenreSeeder extends Seeder
 {
@@ -13,14 +14,10 @@ class GenreSeeder extends Seeder
      */
     public function run(): void
     {
-        Genre::insert([
-            ['name' => 'Action'],
-            ['name' => 'Adventure'],
-            ['name' => 'RPG'],
-            ['name' => 'Strategy'],
-            ['name' => 'Horror'],
-            ['name' => 'Simulation'],
-            ['name' => 'Sports'],
-        ]);
+        $genres = ['Action', 'Adventure', 'RPG', 'Strategy', 'Horror', 'Simulation', 'Sports'];
+
+        foreach ($genres as $genre) {
+            Genre::updateOrInsert(['name' => $genre]); // Correcto
+        }
     }
 }

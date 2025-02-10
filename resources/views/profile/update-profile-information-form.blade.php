@@ -81,6 +81,12 @@
                 @endif
             @endif
         </div>
+
+        <div>
+            <x-label for="birthdate" value="{{ __('Birthdate') }}" />
+            <x-input id="birthdate" type="date" class="mt-1 block w-full" wire:model="state.birthdate" required autocomplete="birthdate" />
+            <x-input-error for="birthdate" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="actions">

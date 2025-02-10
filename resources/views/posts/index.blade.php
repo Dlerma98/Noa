@@ -5,6 +5,8 @@
 @section('content')
     <div class="container mx-auto py-10">
         <h1 class="text-4xl font-bold mb-6 text-center">Listado de noticias</h1>
+
+        @livewire('genre-filter')
         @if($posts->isEmpty())
             <h1 class="text-2xl font-semibold mb-6 text-center">No hay Posts disponibles.</h1>
         @endif

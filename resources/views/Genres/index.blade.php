@@ -1,13 +1,13 @@
 @extends('layouts.noa-layout')
 
-@section('title', 'Listado de Generos - Noa')
+@section('title', 'Listado de Géneros - Noa')
 
 @section('content')
     <div class="container mx-auto py-10">
+        <h1 class="text-4xl font-bold mb-6 text-center">Listado de Géneros</h1>
+
         @if($genres->isEmpty())
-            <h1 class="text-4xl font-bold mb-6 text-center">No hay Géneros Creados.</h1>
-        @else
-            <h1 class="text-4xl font-bold mb-6 text-center">Listado de Géneros</h1>
+            <h1 class="text-2xl font-semibold mb-6 text-center">No hay Géneros Creados.</h1>
         @endif
 
         @auth
@@ -56,3 +56,4 @@
         </div>
     </div>
 @endsection
+

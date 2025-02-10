@@ -18,6 +18,7 @@ class StorePostRequest extends FormRequest
             'category' => 'required|string|in:PlayStation,Xbox,PC,Switch',
             'type' => 'required|string|in:Exclusive,Multiplatform',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'genre_id' => 'required|exists:genres,id',
         ];
     }
 
@@ -40,6 +41,9 @@ class StorePostRequest extends FormRequest
 
             'type.required' => 'El tipo es obligatorio.',
             'type.in' => 'El tipo debe ser Exclusive o Multiplatform.',
+
+            'genre_id.required' => 'El género es obligatorio.', // 💡 Mensaje nuevo
+            'genre_id.exists' => 'El género seleccionado no es válido.',
         ];
     }
 

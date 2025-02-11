@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Events\PostPublished;
 use App\Listeners\SendPostPublishedEmail;
+use App\Models\Post;
+use App\Policies\PostPolicy;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,7 +26,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Event::listen(
             PostPublished::class,
-            SendPostPublishedEmail::class
+            SendPostPublishedEmail::class,
         );
     }
+
+    protected $policies = [
+        Post::class => PostPolicy::class,
+    ];
 }

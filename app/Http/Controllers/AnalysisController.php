@@ -11,14 +11,12 @@ use Illuminate\Http\Request;
 
 class AnalysisController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        // Filtrar por puntaje, género o consola
-        $analyses = Analysis::query()
-            ->when($request->input('score'), fn($query, $score) => $query->where('score', '>=', $score))
-            ->when($request->input('console'), fn($query, $console) => $query->where('console', $console))
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+
+        $analyses = Analysis::query();
+        // Obtener los posts ordenados
+        $analyses = $analyses->orderBy('created_at', 'desc')->paginate(12);
 
         return view('analyses.index', compact('analyses'));
     }

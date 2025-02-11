@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostPublished;
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Genre;
@@ -10,22 +11,12 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $posts = Post::query();
-
-        // Filtrar por categoría
-        if ($request->has('category')) {
-            $posts->where('category', $request->input('category'));
-        }
-
-        // Filtrar por tipo
-        if ($request->has('type')) {
-            $posts->where('type', $request->input('type'));
-        }
-
-        // Obtener los posts ordenados
         $posts = $posts->orderBy('created_at', 'desc')->paginate(12);
+
+
 
         return view('posts.index', compact('posts'));
     }
@@ -57,6 +48,8 @@ class PostController extends Controller
         // Crear el post sin imagen
         $post = Post::create($data);
 
+        //Evento para envio de correo una vez se crea el post
+        event(new PostPublished($post));
         // Redirigir a la página de edición para que el usuario suba la imagen con Livewire
         return redirect()->route('posts.edit', $post->id)->with('status', 'Post creado con éxito. Ahora sube una imagen.');
     }

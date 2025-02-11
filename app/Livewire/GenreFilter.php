@@ -2,34 +2,35 @@
 namespace App\Livewire;
 
 use App\Models\Post;
+use App\Models\Genre;
 use Livewire\Component;
 
 class GenreFilter extends Component
 {
-    public $search = '';
-    public $results = [];
-    public $errorMessage = '';
+    public $genres = [];
+    public $selectedGenre = '';
+    public $posts = [];
 
-    public function searchGenre()
+    public function mount()
     {
-        if (strlen($this->search) > 2) {
-            $this->results = Post::whereHas('genre', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })->get();
+        $this->genres = Genre::all(); // Cargar todos los géneros
+    }
 
-            if ($this->results->isEmpty()) {
-                $this->errorMessage = 'No se encontraron Posts con dicho género.';
-            } else {
-                $this->errorMessage = '';
-            }
+    public function updatedSelectedGenre()
+    {
+        if (!empty($this->selectedGenre)) {
+            $this->posts = Post::where('genre_id', $this->selectedGenre)->get();
         } else {
-            $this->errorMessage = 'Escribe al menos 3 caracteres para buscar.';
-            $this->results = [];
+            $this->posts = [];
         }
     }
 
     public function render()
     {
-        return view('livewire.genre-filter', ['posts' => $this->results]);
+
+        return view('livewire.genre-filter', [
+            'posts' => $this->posts,
+            'genres' => $this->selectedGenre,
+        ]);
     }
 }

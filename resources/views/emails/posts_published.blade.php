@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Email de Prueba</title>
+    <title>Nuevo Post Publicado</title>
 </head>
 <body>
-<h1>¡Este es un correo de prueba!</h1>
+<h1>{{ $post->title }}</h1>
+<p>{{ $post->content }}</p>
+<a href="{{ url('/posts/' . $post->id) }}">Ver post</a>
 </body>
 </html>

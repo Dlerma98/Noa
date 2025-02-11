@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\OrderByCreationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,5 +22,15 @@ class Post extends Model
     public function genre()
     {
         return $this->belongsTo(Genre::class);
+    }
+
+    public function scopeOwnedBy($query, $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrderByCreationScope);
     }
 }

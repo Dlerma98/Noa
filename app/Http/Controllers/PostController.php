@@ -7,10 +7,13 @@ use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Genre;
 use App\Models\Post;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $posts = Post::paginate(12);

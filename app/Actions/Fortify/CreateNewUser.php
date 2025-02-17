@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -24,15 +25,23 @@ class CreateNewUser implements CreatesNewUsers
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
-            'phone' => ['required', 'numeric', 'digits:9'],
-            'birthdate' => ['required', 'date'],
+            'birthdate' => [
+                'required',
+                'date',
+                'before_or_equal:today', // Verifica que la fecha no sea mayor a la fecha actual
+                function ($attribute, $value, $fail) {
+                    $age = Carbon::parse($value)->age;
+                    if ($age < 16) {
+                        $fail('El usuario debe tener al menos 16 años.');
+                    }
+                }
+            ],
         ])->validate();
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'phone' => $input['phone'],
             'birthdate' => $input['birthdate'],
         ]);
     }

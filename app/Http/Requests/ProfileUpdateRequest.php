@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Genre;
+namespace App\Http\Requests;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -34,8 +35,17 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
-            'phone'=>['required','numeric','digits:9'],
-            'birthdate'=>['required','date'],
-        ];
+            'birthdate' => [
+                'required',
+                'date',
+                'before_or_equal:today', // Verifica que la fecha no sea mayor a la fecha actual
+                function ($attribute, $value, $fail) {
+                    $age = Carbon::parse($value)->age;
+                    if ($age < 16) {
+                        $fail('El usuario debe tener al menos 16 años.');
+                    }
+                }
+            ],
+            ];
     }
 }

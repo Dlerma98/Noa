@@ -31,14 +31,16 @@ class PostController extends Controller
     public function create()
     {
         $genres = Genre::all();
-        return view('posts.create', [
-            'genres' => $genres,
-            'post' => new Post()
-        ]);
+        return view('posts.create', ['genres' => $genres, 'post' => new Post()]);
     }
 
     public function store(StorePostRequest $request)
     {
+        // Validar si el usuario tiene el rol de redactor
+        if (!auth()->user()->hasRole('redactor')) {
+            abort(403, 'No tienes permiso para crear posts.');
+        }
+
         // Validar los datos sin la imagen
         $data = $request->validated();
         $data['user_id'] = auth()->id();
@@ -47,8 +49,9 @@ class PostController extends Controller
         // Crear el post sin imagen
         $post = Post::create($data);
 
-        //Evento para envio de correo una vez se crea el post
+        // Evento para envío de correo una vez se crea el post
         event(new PostPublished($post));
+
         // Redirigir a la página de edición para que el usuario suba la imagen con Livewire
         return redirect()->route('posts.edit', $post->id)->with('status', 'Post creado con éxito. Ahora sube una imagen.');
     }

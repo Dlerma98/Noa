@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Spatie\Permission\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Analysis>
@@ -27,8 +28,19 @@ class AnalysisFactory extends Factory
             "thumbnails/LOJVJ8Q29PV1dZ44fX76c8zfNFxR3VG0mXQr67R3.jpg",
         ];
 
+        $redactor = User::role('redactor')->inRandomOrder()->first();
+
+        if (!$redactor) {
+            // Si no hay redactores, crear uno nuevo y asignarle el rol
+            $redactor = User::factory()->create();
+            if (!Role::where('name', 'redactor')->exists()) {
+                Role::create(['name' => 'redactor']); // Crear el rol si no existe
+            }
+            $redactor->assignRole('redactor'); // Asignar rol "redactor" al usuario
+        }
+
         return [
-            'user_id' => User::factory()->create()->id,
+            'user_id' =>  $redactor->id,
             'genre_id' => Genre::factory()->create()->id,
             'title' => fake()->sentence,
             'thumbnail' => $this->faker->randomElement($images),// URL de imagen aleatoria

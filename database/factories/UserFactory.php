@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
+use Spatie\Permission\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -26,12 +27,16 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // Roles disponibles
+        $roles = ['admin', 'redactor', 'lector'];
+        $role = $this->faker->randomElement($roles);
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'birthdate'=> fake()->date(),
-            'password' => static::$password ??= Hash::make('password'),
+            'birthdate' => $this->faker->date(),
+            'password' => Hash::make('password'),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),
@@ -69,5 +74,22 @@ class UserFactory extends Factory
                 ->when(is_callable($callback), $callback),
             'ownedTeams'
         );
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            // Definir los roles disponibles
+            $roles = ['admin', 'redactor', 'lector'];
+            $role = $this->faker->randomElement($roles);
+
+            // Crear el rol si no existe
+            if (!Role::where('name', $role)->exists()) {
+                Role::create(['name' => $role]);
+            }
+
+            // Asignar el rol al usuario
+            $user->assignRole($role);
+        });
     }
 }

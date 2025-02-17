@@ -8,7 +8,7 @@
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Análisis del Usuario -->
+                <!-- Post del Usuario -->
                 <div class="bg-white shadow-xl rounded-lg p-6">
                     <h3 class="text-lg font-semibold text-gray-700">Post Realizados</h3>
                     <p class="text-3xl font-bold text-indigo-600 mt-2">{{ auth()->user()->post ? auth()->user()->post->count() : 0 }}</p>

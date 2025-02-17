@@ -20,21 +20,29 @@
                 Análisis
             </a>
 
-            <a href="{{ route('genres.index') }}"
-               class="px-3 py-2 {{ request()->routeIs('genres.index') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
-                Géneros
-            </a>
+            @auth
+                @if(auth()->user()->hasRole('admin'))
+                    <a href="{{ route('genres.index') }}"
+                       class="px-3 py-2 {{ request()->routeIs('genres.index') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
+                        Géneros
+                    </a>
+                @endif
+            @endauth
 
             @auth
-                <a href="{{ route('posts.myposts') }}"
-                   class="px-3 py-2 {{ request()->routeIs('posts.myposts') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
-                    Mis Posts
-                </a>
+                @if(auth()->user()->hasRole('redactor') && auth()->user()->post->count() > 0)
+                    <a href="{{ route('posts.myposts') }}"
+                       class="px-3 py-2 {{ request()->routeIs('posts.myposts') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
+                        Mis Posts
+                    </a>
+                @endif
 
-                <a href="{{ route('analysis.myanalyses') }}"
-                   class="px-3 py-2 {{ request()->routeIs('analysis.myanalyses') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
-                    Mis Análisis
-                </a>
+                    @if(auth()->user()->hasRole('redactor') && auth()->user()->analysis->count() > 0)
+                        <a href="{{ route('analysis.myanalyses') }}"
+                           class="px-3 py-2 {{ request()->routeIs('analysis.myanalyses') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
+                            Mis Análisis
+                        </a>
+                    @endif
             @endauth
         </div>
 

@@ -1,67 +1,51 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 
-// Página principal
+// ✅ Rutas que cualquier usuario puede ver (incluso invitados)
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::get('analyses', [AnalysisController::class, 'index'])->name('analyses.index');
+Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::get('analyses/{analysis}', [AnalysisController::class, 'show'])->name('analyses.show');
 
-// CRUD de Posts (usando 'noa' como slug pero asignando el parámetro como 'post')
-Route::resource('noa', PostController::class)
-    ->names('posts')
-    ->parameters(['noa' => 'post']);
-Route::get("posts/myposts", [PostController::class, 'myPosts'])->name('posts.myposts');
+// ✅ Rutas protegidas para usuarios autenticados
+Route::middleware(['auth'])->group(function () {
 
+    // 🔹 Rutas solo para Administradores
+    Route::middleware(['role:admin'])->group(function () {
+        Route::resource('genres', GenreController::class);
+        Route::resource('users', ProfileController::class);
+    });
 
-// Rutas para Análisis
-Route::resource('analyses', AnalysisController::class)
-    ->names('analyses')
-    ->parameters(['analyses' => 'analysis']);
-Route::get("analysis/myanalyses", [AnalysisController::class, 'myAnalyses'])->name('analysis.myanalyses');
+    // 🔹 Rutas solo para Redactores
+    Route::middleware(['role:redactor'])->group(function () {
+        Route::resource('posts', PostController::class)->except(['index', 'show']);
+        Route::get('myposts', [PostController::class, 'myPosts'])->name('posts.myposts');
 
+        Route::resource('analyses', AnalysisController::class)->except(['index', 'show']);
+        Route::get('myanalyses', [AnalysisController::class, 'myAnalyses'])->name('analysis.myanalyses');
+    });
 
-
-
-
-// Rutas para Generos
-Route::resource('genres', GenreController::class)
-    ->names('genres')
-    ->parameters(['genres' => 'genre']);
-
-
-
-// Grupo de rutas protegidas para usuarios autenticados
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-    Route::get("post/myposts", [PostController::class, 'myPosts'])
-        ->middleware('auth')
-        ->name('post.myposts');
-
-    Route::get("analysis/myanalyses", [AnalysisController::class, 'myAnalyses'])->name('analysis.myanalyses');
-
-    // CRUD completo de análisis, pero protegido para usuarios autenticados
-    Route::resource('analyses', AnalysisController::class)->except(['index', 'show']);
-
-
-    // Rutas del perfil de usuario (solución a Route [profile.edit] not defined)
+    // 🔹 Rutas del Perfil del Usuario (para cualquier autenticado)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'logout'])->name('profile.logout');
 });
 
-// Logout (ya incluido en Jetstream, pero si necesitas llamarlo explícitamente)
+// ✅ Ruta de logout
 Route::post('/logout', function () {
     auth()->logout();
     return redirect('/');
 })->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
 

@@ -17,6 +17,7 @@ class StoreAnalysisRequest extends FormRequest
             'score' => 'required|min:0|max:100',
             'console' => 'required|string|in:PlayStation,Xbox,PC,Switch',
             'type' => 'required|string|in:Review,Retro,News',
+            'genre_id' => 'required|exists:genres,id',
         ];
     }
 
@@ -38,6 +39,9 @@ class StoreAnalysisRequest extends FormRequest
 
             'type.required' => 'El tipo es obligatorio.',
             'type.in' => 'El tipo debe ser Review, Retro o News.',
+
+            'genre_id.required' => 'El género es obligatorio.', // 💡 Mensaje nuevo
+            'genre_id.exists' => 'El género seleccionado no es válido.',
         ];
     }
 

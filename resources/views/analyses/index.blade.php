@@ -43,6 +43,7 @@
                             @if($analysis->thumbnail)
                                 <img src="{{ asset('storage/' . $analysis->thumbnail) }}" class="w-32 h-32 rounded-lg shadow-md mb-4">
                             @endif
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">Género: {{ $analysis->genre->name }}</p>
                             <p class="text-gray-600 dark:text-gray-300 mb-4">Redactor: {{ $analysis->user->name }}</p>
                             <p class="text-gray-600 dark:text-gray-300 mb-4">Consola: {{ $analysis->console }}</p>
                             <p class="text-gray-600 dark:text-gray-300 mb-4">Tipo de analisis: {{ $analysis->type }}</p>

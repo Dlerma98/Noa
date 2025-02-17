@@ -15,6 +15,7 @@ class UpdateAnalysisRequest extends FormRequest
             'console' => 'required|string|in:PlayStation,Xbox,PC,Switch',
             'type' => 'required|string|in:Review,Retro,News',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'genre_id' => 'required|exists:genres,id',
         ];
     }
 
@@ -40,6 +41,9 @@ class UpdateAnalysisRequest extends FormRequest
             'thumbnail.image' => 'El archivo debe ser una imagen.',
             'thumbnail.mimes' => 'El formato de imagen debe ser jpeg, png, jpg, gif o webp.',
             'thumbnail.max' => 'El tamaño de la imagen no puede superar los 2MB.',
+
+            'genre_id.required' => 'El género es obligatorio.', // 💡 Mensaje nuevo
+            'genre_id.exists' => 'El género seleccionado no es válido.',
         ];
     }
 

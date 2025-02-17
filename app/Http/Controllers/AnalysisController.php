@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Analysis\StoreAnalysisRequest;
 use App\Http\Requests\Analysis\UpdateAnalysisRequest;
-use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Analysis;
-use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Models\Genre;
+
 
 class AnalysisController extends Controller
 {
@@ -30,7 +29,11 @@ class AnalysisController extends Controller
 
     public function create()
     {
-        return view('analyses.create', ['analysis' => new Analysis()]);
+        $genres = Genre::all();
+        return view('analyses.create', [
+            'genres' => $genres,
+            'analysis' => new Analysis()
+        ]);
     }
 
     public function store(StoreAnalysisRequest $request)
@@ -54,7 +57,8 @@ class AnalysisController extends Controller
 
     public function edit(Analysis $analysis)
     {
-        return view('analyses.edit', compact('analysis'));
+        $genres = Genre::all();
+        return view('analyses.edit', compact('analysis','genres'));
     }
 
 

@@ -61,3 +61,18 @@
     </select>
     <x-input-error :messages="$errors->get('type')" class="mt-2"/>
 </div>
+
+
+<div>
+    <x-input-label for="genre" :value="__('Genre')"/>
+    <select id="genre" name="genre_id"
+            class="w-full mt-1 block border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200">
+        <option value="">-- Select Genre --</option>
+        @foreach($genres as $genre)
+            <option value="{{ $genre->id }}" {{ old('genre_id', $analysis->genre_id) == $genre->id ? 'selected' : '' }}>
+                {{ $genre->name }}
+            </option>
+        @endforeach
+    </select>
+    <x-input-error :messages="$errors->get('genre_id')" class="mt-2"/>
+</div>

@@ -30,14 +30,14 @@
             @endauth
 
             @auth
-                @if(auth()->user()->hasRole('redactor') && auth()->user()->post->count() > 0)
+                @if(auth()->user()->hasRole('redactor') && auth()->user()->posts->count() > 0)
                     <a href="{{ route('posts.myposts') }}"
                        class="px-3 py-2 {{ request()->routeIs('posts.myposts') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
                         Mis Posts
                     </a>
                 @endif
 
-                    @if(auth()->user()->hasRole('redactor') && auth()->user()->analysis->count() > 0)
+                    @if(auth()->user()->hasRole('redactor') && auth()->user()->analyses->count() > 0)
                         <a href="{{ route('analysis.myanalyses') }}"
                            class="px-3 py-2 {{ request()->routeIs('analysis.myanalyses') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
                             Mis Análisis

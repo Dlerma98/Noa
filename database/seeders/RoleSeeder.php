@@ -18,7 +18,8 @@ class RoleSeeder extends Seeder
         // Crear Permisos
         Permission::firstOrCreate(['name' => 'crear generos']);
         Permission::firstOrCreate(['name' => 'administrar usuarios']);
-        Permission::firstOrCreate(['name' => 'crear post']);
+        Permission::firstOrCreate(['name' => 'crear posts']);
+        Permission::firstOrCreate(['name' => 'crear analisis']);
         Permission::firstOrCreate(['name' => 'leer post']);
 
         // Asignar permisos a roles
@@ -26,7 +27,7 @@ class RoleSeeder extends Seeder
         $admin->givePermissionTo(['crear generos', 'administrar usuarios']);
 
         $redactor = Role::where('name', 'redactor')->first();
-        $redactor->givePermissionTo(['crear post']);
+        $redactor->givePermissionTo(['crear posts', 'crear analisis']);
 
         $lector = Role::where('name', 'lector')->first();
         $lector->givePermissionTo(['leer post']);

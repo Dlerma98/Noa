@@ -30,7 +30,6 @@ class PostController extends Controller
 
     public function create()
     {
-        $this->authorize('create');
         $genres = Genre::all();
         return view('posts.create', ['genres' => $genres, 'post' => new Post()]);
     }

@@ -36,6 +36,18 @@
             @endcan
         @endauth
 
+            <div class="flex items-center justify-center space-x-10">
+                <a
+                    class="rounded-full bg-green-600 p-4 text-white-100 shadow-lg hover:bg-green-700 active:bg-green-800"
+                    href="{{ route('posts.pdf', $post) }}"
+                >
+                    <svg class="h-6 w-6" fill="none" stroke-width="1.5" stroke="currentColor"
+                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </a>
+
             <img src="{{ asset('storage/' . $post->thumbnail) }}" class="w-32 h-32 rounded-lg shadow-md mb-4">
 
         <div class="flex-1 space-y-3 pt-4 md:text-center">

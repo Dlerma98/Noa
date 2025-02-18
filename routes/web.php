@@ -37,6 +37,7 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
 Route::get('analyses', [AnalysisController::class, 'index'])->name('analyses.index');
 Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::get('posts/pdf/{post}', [PostController::class, 'generatePdf'])->name('posts.pdf');
 Route::get('analyses/{analysis}', [AnalysisController::class, 'show'])->name('analyses.show');
 
 

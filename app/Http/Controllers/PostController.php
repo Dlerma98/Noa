@@ -7,6 +7,7 @@ use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Genre;
 use App\Models\Post;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PostController extends Controller
@@ -84,6 +85,15 @@ class PostController extends Controller
     public function myPosts() {
         $posts = Post::ownedBy(auth()->id())->get();
         return view('posts.myposts', compact('posts'));
+    }
+
+    public function generatePdf(Post  $post)
+    {
+        $post = Post::find($post->id);
+
+        $pdf = pdf::loadView('posts.pdf', compact('post'));
+
+        return $pdf->download($post->title.'.pdf');
     }
 
 }

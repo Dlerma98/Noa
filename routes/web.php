@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentReactionController;
 use App\Http\Controllers\PostController;
@@ -16,6 +17,8 @@ use App\Http\Controllers\ProfileController;
     Route::middleware(['role:admin'])->group(function () {
         Route::resource('genres', GenreController::class);
         Route::resource('users', ProfileController::class);
+        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::patch('/admin/make-redactor/{user}', [AdminController::class, 'makeRedactor'])->name('admin.makeRedactor');
     });
 
     //  Rutas solo para Redactores

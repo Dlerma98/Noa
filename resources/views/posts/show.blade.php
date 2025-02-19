@@ -50,51 +50,18 @@
         @endauth
 
         {{-- Lista de comentarios --}}
-        <div class="mt-8">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Comentarios</h3>
-            @forelse($post->comments as $comment)
-                <div class="mt-4 p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800">
-                    <p class="text-gray-700 dark:text-gray-300"><strong>{{ $comment->user->name }}</strong> comentó:</p>
-                    <p class="mt-1 text-gray-900 dark:text-white">{{ $comment->content }}</p>
-                    <span class="text-xs text-gray-500">{{ $comment->created_at->diffForHumans() }}</span>
+            <div class="mt-8">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Comentarios</h3>
 
-                    {{-- Botones de reacción --}}
-                    @auth
-                        <form action="{{ route('comments.reactions.store') }}" method="POST" class="mt-2 flex space-x-2">
-                            @csrf
-                            <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                @if($post->comments->where('parent_id', null)->isEmpty())
+                    <p class="mt-4 text-gray-500">No hay comentarios aún. Sé el primero en comentar.</p>
+                @else
+                    @foreach($post->comments->where('parent_id', null) as $comment)
+                        @include('components.comment', ['comment' => $comment])
+                    @endforeach
+                @endif
+            </div>
 
-                            <button type="submit" name="reaction_type" value="like"
-                                    class="px-2 py-1 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600">
-                                👍 {{ $comment->reactions->where('reaction_type', 'like')->count() }}
-                            </button>
-
-                            <button type="submit" name="reaction_type" value="love"
-                                    class="px-2 py-1 bg-red-500 text-white rounded-lg shadow hover:bg-red-600">
-                                ❤️ {{ $comment->reactions->where('reaction_type', 'love')->count() }}
-                            </button>
-
-                            <button type="submit" name="reaction_type" value="laugh"
-                                    class="px-2 py-1 bg-yellow-500 text-white rounded-lg shadow hover:bg-yellow-600">
-                                😂 {{ $comment->reactions->where('reaction_type', 'laugh')->count() }}
-                            </button>
-
-                            <button type="submit" name="reaction_type" value="sad"
-                                    class="px-2 py-1 bg-gray-500 text-white rounded-lg shadow hover:bg-gray-600">
-                                😢 {{ $comment->reactions->where('reaction_type', 'sad')->count() }}
-                            </button>
-
-                            <button type="submit" name="reaction_type" value="angry"
-                                    class="px-2 py-1 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600">
-                                😡 {{ $comment->reactions->where('reaction_type', 'angry')->count() }}
-                            </button>
-                        </form>
-                    @endauth
-                </div>
-            @empty
-                <p class="mt-4 text-gray-500">No hay comentarios aún. Sé el primero en comentar.</p>
-            @endforelse
-        </div>
     </article>
 @endsection
 

@@ -15,6 +15,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @if(auth()->user()->hasRole('admin'))
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                                {{ __('Admin Dashboard') }}
+                            </x-nav-link>
+                        </div>
+                    @endif
                     <!--Volver al Home -->
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                         {{"Volver a home"}}

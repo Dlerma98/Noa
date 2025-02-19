@@ -3,6 +3,7 @@
         <h2 class="font-semibold text-2xl text-gray-900 leading-tight">
             {{ __('Dashboard') }}
         </h2>
+
     </x-slot>
 
     <div class="py-12 bg-gray-100 min-h-screen">

@@ -24,6 +24,11 @@ class Post extends Model
         return $this->belongsTo(Genre::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function scopeOwnedBy($query, $userId)
     {
         return $query->where('user_id', $userId);

@@ -57,9 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-});
 
-Route::middleware(['auth'])->group(function () {
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::post('/comments/reactions', [CommentReactionController::class, 'store'])->name('comments.reactions.store');
 

@@ -2,6 +2,12 @@
 
 @section('title', $post->title)
 
+@if(session('status'))
+    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4 mx-auto w-1/2 text-center rounded-lg shadow-md">
+        <p class="font-semibold">{{ session('status') }}</p>
+    </div>
+@endif
+
 @section('content')
     <article class="mx-auto flex max-w-4xl flex-col">
         @auth

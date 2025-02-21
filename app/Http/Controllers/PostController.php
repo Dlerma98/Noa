@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Events\PostPublished;
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
+use App\Jobs\GeneratePostPDF;
 use App\Models\Genre;
 use App\Models\Post;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -91,9 +93,17 @@ class PostController extends Controller
     {
         $post = Post::find($post->id);
 
-        $pdf = pdf::loadView('posts.pdf', compact('post'));
+        $filePath = "pdfs/post-{$post->id}.pdf";
 
-        return $pdf->download($post->title.'.pdf');
+        // Verificar si el PDF ya existe, si no, generar en segundo plano
+        if (!Storage::disk('public')->exists($filePath)) {
+            dispatch(new GeneratePostPDF($post));
+
+            return back()->with('status', 'El PDF está siendo generado. Inténtalo nuevamente en unos segundos.');
+        }
+
+        // Si ya existe, devolver el archivo
+        return response()->download(storage_path("app/public/{$filePath}"));
     }
 
 }

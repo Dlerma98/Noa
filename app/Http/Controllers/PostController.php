@@ -56,7 +56,7 @@ class PostController extends Controller
         event(new PostPublished($post));
 
         // Redirigir a la página de edición para que el usuario suba la imagen con Livewire
-        return redirect()->route('posts.edit', $post->id)->with('status', 'Post creado con éxito. Ahora sube una imagen.');
+        return redirect()->route('posts.edit', $post->id)->with('status', 'Post creado con éxito. Ahora sube una imagen si lo deseas.');
     }
 
 
@@ -73,7 +73,7 @@ class PostController extends Controller
 
         $post -> update($request->validated());
 
-        return to_route('posts.show', $post)->with('status', 'Post updated successfully!');
+        return to_route('posts.show', $post)->with('status', 'Post actualizado exitosamente!');
 
     }
 
@@ -81,7 +81,7 @@ class PostController extends Controller
     {
         $this->authorize('delete', $post);
         $post->delete();
-        return to_route('posts.index')->with('status', 'Post deleted successfully!');
+        return to_route('posts.index')->with('status', 'Post eliminado exitosamente!');
     }
 
     public function myPosts() {

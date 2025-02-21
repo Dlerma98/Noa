@@ -2,6 +2,12 @@
 
 @section('title', 'Listado de Posts - Noa')
 
+@if(session('status'))
+    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4 mx-auto w-1/2 text-center rounded-lg shadow-md">
+        <p class="font-semibold">{{ session('status') }}</p>
+    </div>
+@endif
+
 @section('content')
     <div class="container mx-auto py-10">
         <h1 class="text-4xl font-bold mb-6 text-center">Listado de noticias</h1>

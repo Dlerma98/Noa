@@ -10,7 +10,21 @@ use Illuminate\Http\Request;
 class AnalysisApiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @group Análisis
+     *
+     * API para gestionar análisis
+     *
+     * @response {
+     *   "data": [
+     *     {
+     *       "id": 1,
+     *       "title": "Análisis del mercado",
+     *       "description": "Detalles del análisis",
+     *       "created_at": "2025-02-21 14:00:00",
+     *       "updated_at": "2025-02-21 15:00:00"
+     *     }
+     *   ]
+     * }
      */
     public function index()
     {

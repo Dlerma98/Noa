@@ -10,8 +10,23 @@ use Illuminate\Http\Request;
 class PostApiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @group Posts
+     *
+     * API para gestionar posts
+     *
+     * @response {
+     *   "data": [
+     *     {
+     *       "id": 1,
+     *       "title": "Mi primer post",
+     *       "content": "Este es el contenido del post",
+     *       "created_at": "2025-02-21 12:00:00",
+     *       "updated_at": "2025-02-21 12:30:00"
+     *     }
+     *   ]
+     * }
      */
+
     public function index()
     {
         $posts = Post::latest()->paginate(10);

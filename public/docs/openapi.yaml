@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: 'Noa api API de Posts y Análisis'
+  description: 'Esta API proporciona acceso a posts y análisis.'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://noa.test'
+paths:
+  /api/analyses:
+    get:
+      summary: 'API para gestionar análisis'
+      operationId: aPIParaGestionarAnlisis
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      title: 'Análisis del mercado'
+                      description: 'Detalles del análisis'
+                      created_at: '2025-02-21 14:00:00'
+                      updated_at: '2025-02-21 15:00:00'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        title: 'Análisis del mercado'
+                        description: 'Detalles del análisis'
+                        created_at: '2025-02-21 14:00:00'
+                        updated_at: '2025-02-21 15:00:00'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: 'Análisis del mercado'
+                        description:
+                          type: string
+                          example: 'Detalles del análisis'
+                        created_at:
+                          type: string
+                          example: '2025-02-21 14:00:00'
+                        updated_at:
+                          type: string
+                          example: '2025-02-21 15:00:00'
+      tags:
+        - Análisis
+      security: []
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/posts:
+    get:
+      summary: 'API para gestionar posts'
+      operationId: aPIParaGestionarPosts
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      title: 'Mi primer post'
+                      content: 'Este es el contenido del post'
+                      created_at: '2025-02-21 12:00:00'
+                      updated_at: '2025-02-21 12:30:00'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        title: 'Mi primer post'
+                        content: 'Este es el contenido del post'
+                        created_at: '2025-02-21 12:00:00'
+                        updated_at: '2025-02-21 12:30:00'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: 'Mi primer post'
+                        content:
+                          type: string
+                          example: 'Este es el contenido del post'
+                        created_at:
+                          type: string
+                          example: '2025-02-21 12:00:00'
+                        updated_at:
+                          type: string
+                          example: '2025-02-21 12:30:00'
+      tags:
+        - Posts
+      security: []
+tags:
+  -
+    name: Análisis
+    description: ''
+  -
+    name: Endpoints
+    description: ''
+  -
+    name: Posts
+    description: ''

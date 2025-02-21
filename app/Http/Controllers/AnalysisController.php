@@ -46,7 +46,7 @@ class AnalysisController extends Controller
         $analysis = Analysis::create($data);
 
         // Redirigir a la página de edición para que el usuario suba la imagen con Livewire
-        return redirect()->route('analyses.edit', $analysis->id)->with('status', 'Analisis creado con éxito. Ahora sube una imagen.');
+        return redirect()->route('analyses.edit', $analysis->id)->with('status', 'Analisis creado con éxito. Ahora sube una imagen si lo deseas.');
     }
 
 
@@ -67,14 +67,14 @@ class AnalysisController extends Controller
 
         $analysis -> update($request->validated());
 
-        return to_route('analyses.show', $analysis)->with('status', 'Analysis updated successfully!');
+        return to_route('analyses.show', $analysis)->with('status', 'Analysis actualizado exitosamente!');
 
     }
 
     public function destroy(Analysis $analysis)
     {
         $analysis -> delete();
-        return redirect()->route('analyses.index')->with('status', 'Analysis deleted successfully!');
+        return redirect()->route('analyses.index')->with('status', 'Analysis eliminado exitosamente!');
     }
 
 }

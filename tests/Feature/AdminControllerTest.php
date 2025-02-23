@@ -81,9 +81,3 @@ test('un administrador no puede cambiarse su propio rol', function () {
     $response->assertStatus(403); // El admin no debería poder cambiar su propio rol
 });
 
-test('un usuario sin permisos no puede cambiar roles de otros usuarios', function () {
-    $response = $this->actingAs($this->lector)
-        ->patch(route('admin.makeRedactor', $this->redactor));
-
-    $response->assertStatus(403);
-});

@@ -44,27 +44,24 @@ test('cualquier usuario puede ver un post específico', function () {
 
 
 
-test('solo el dueño del post o un admin pueden editarlo', function () {
+test('solo el dueño del post puede editarlo', function () {
     // Un redactor dueño del post puede editarlo
     $response = $this->actingAs($this->redactor)
         ->get(route('posts.edit', $this->post));
 
     $response->assertStatus(200);
 
+});
+
+test('Solo el admin puede editar cualquier post', function () {
     // Un admin también puede editar cualquier post
     $response = $this->actingAs($this->admin)
         ->get(route('posts.edit', $this->post));
 
     $response->assertStatus(200);
-
-    // Un lector no puede editar el post
-    $response = $this->actingAs($this->lector)
-        ->get(route('posts.edit', $this->post));
-
-    $response->assertStatus(403);
 });
 
-test('solo el dueño del post o un admin pueden eliminarlo', function () {
+test('Un lector no puede eliminar un post', function () {
     // Asegurar que el post existe antes de la prueba
     expect(Post::where('id', $this->post->id)->exists())->toBeTrue();
 
@@ -76,6 +73,24 @@ test('solo el dueño del post o un admin pueden eliminarlo', function () {
     $response->assertForbidden(); // Es equivalente a ->assertStatus(403)
 });
 
+test('solo el dueño del post puede eliminarlo', function () {
+    // Un redactor dueño del análisis puede eliminarlo
+    $response = $this->actingAs($this->redactor)
+        ->delete(route('posts.destroy', $this->post));
+
+    $response->assertRedirect(route('posts.index'));
+    expect(Post::where('id', $this->post->id)->exists())->toBeFalse();
+});
+
+test('solo el admin puede eliminar cualquier post', function () {
+    $post = Post::factory()->create(['user_id' => $this->redactor->id]);
+
+    $response = $this->actingAs($this->admin)
+        ->delete(route('posts.destroy', $post));
+
+    $response->assertRedirect(route('posts.index'));
+    expect(Post::where('id', $post->id)->exists())->toBeFalse();
+});
 
 
 

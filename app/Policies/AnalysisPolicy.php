@@ -18,6 +18,7 @@ class AnalysisPolicy
 
     public function update(User $user, Analysis $analysis): bool
     {
-        return ($user->id === $analysis->user_id && $user->hasRole('redactor')) || $user->hasRole('admin');
+        return $user->id === $analysis->user_id || $user->hasRole('admin');
+
     }
 }

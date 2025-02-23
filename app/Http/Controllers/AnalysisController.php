@@ -42,7 +42,7 @@ class AnalysisController extends Controller
     public function store(StoreAnalysisRequest $request)
     {
         if (!auth()->user()->hasAnyRole(['admin', 'redactor'])) {
-            abort(403, 'No tienes permiso para crear posts.');
+            abort(403, 'No tienes permiso para crear analisis.');
         }
 
         $data = $request->validated();

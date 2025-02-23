@@ -18,9 +18,7 @@ use App\Http\Controllers\ProfileController;
     //  Rutas solo para Redactores y administradores
     Route::middleware(['auth','role:admin|redactor'])->group(function () {
         Route::resource('posts', PostController::class)->except(['index', 'show']);
-
         Route::resource('analyses', AnalysisController::class)->except(['index', 'show']);
-
         Route::get('myposts', [PostController::class, 'myPosts'])->name('posts.myposts');
         Route::get('myanalyses', [AnalysisController::class, 'myAnalyses'])->name('analysis.myanalyses');
     });

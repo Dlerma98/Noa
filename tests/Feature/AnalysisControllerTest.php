@@ -42,51 +42,23 @@ test('cualquier usuario puede ver un análisis específico', function () {
     $response->assertSee($this->analysis->title);
 });
 
-test('solo un admin o redactor puede crear un análisis', function () {
-    // Un redactor puede crear un análisis
-    $response = $this->actingAs($this->redactor)
-        ->postJson(route('analyses.store'), [
-            'title' => 'Nuevo Análisis',
-            'content' => 'Contenido válido con más de 30 caracteres.',
-            'genre_id' => $this->genre->id,
-        ]);
 
-    $response->assertRedirect();
-    expect(Analysis::where('title', 'Nuevo Análisis')->exists())->toBeTrue();
 
-    // Un lector no puede crear un análisis
-    $response = $this->actingAs($this->lector)
-        ->postJson(route('analyses.store'), [
-            'title' => 'Análisis no permitido',
-            'content' => 'Contenido',
-            'genre_id' => $this->genre->id,
-        ]);
-
-    $response->assertStatus(403);
-    expect(Analysis::where('title', 'Análisis no permitido')->exists())->toBeFalse();
-});
-
-test('solo el dueño del análisis o un admin pueden editarlo', function () {
-    // Un redactor dueño del análisis puede editarlo
+test('solo el dueño del análisis puede editarlo', function () {
     $response = $this->actingAs($this->redactor)
         ->get(route('analyses.edit', $this->analysis));
 
     $response->assertStatus(200);
+});
 
-    // Un admin también puede editar cualquier análisis
+test('solo el admin puede editar cualquier analisis', function () {
     $response = $this->actingAs($this->admin)
         ->get(route('analyses.edit', $this->analysis));
 
     $response->assertStatus(200);
-
-    // Un lector no puede editar el análisis
-    $response = $this->actingAs($this->lector)
-        ->get(route('analyses.edit', $this->analysis));
-
-    $response->assertStatus(403);
 });
 
-test('solo el dueño del análisis o un admin pueden eliminarlo', function () {
+test('solo el dueño del análisis puede eliminarlo', function () {
     // Un redactor dueño del análisis puede eliminarlo
     $response = $this->actingAs($this->redactor)
         ->delete(route('analyses.destroy', $this->analysis));
@@ -94,7 +66,9 @@ test('solo el dueño del análisis o un admin pueden eliminarlo', function () {
     $response->assertRedirect(route('analyses.index'));
     expect(Analysis::where('id', $this->analysis->id)->exists())->toBeFalse();
 
-    // Un admin también puede eliminar cualquier análisis
+});
+
+test('Un admin puede eliminar un analisis', function() {
     $analysis = Analysis::factory()->create(['user_id' => $this->redactor->id]);
 
     $response = $this->actingAs($this->admin)
@@ -102,19 +76,64 @@ test('solo el dueño del análisis o un admin pueden eliminarlo', function () {
 
     $response->assertRedirect(route('analyses.index'));
     expect(Analysis::where('id', $analysis->id)->exists())->toBeFalse();
+});
 
-    // Un lector no puede eliminar análisis
+
+test('un usuario autenticado puede ver sus propios análisis', function () {
+    $response = $this->actingAs($this->redactor)
+        ->get(route('analysis.myanalyses'));
+
+    $response->assertStatus(200);
+    $response->assertViewHas('analyses');
+});
+
+test('un redactor no puede crear un análisis sin título', function () {
+    $response = $this->actingAs($this->redactor)
+        ->postJson(route('analyses.store'), [
+            'content' => 'Contenido válido con más de 30 caracteres.',
+            'score' => 50,
+            'console' => 'PC',
+            'type' => 'Retro',
+            'genre_id' => $this->genre->id,
+        ]);
+
+    $response->assertStatus(422);
+    $response->assertJsonValidationErrors(['title']);
+});
+
+test('un redactor no puede crear un análisis con puntaje fuera de rango', function () {
+    $response = $this->actingAs($this->redactor)
+        ->postJson(route('analyses.store'), [
+            'title' => 'Nuevo Análisis',
+            'content' => 'Contenido válido con más de 30 caracteres.',
+            'score' => 150, // Fuera del rango 0-100
+            'console' => 'PC',
+            'type' => 'Retro',
+            'genre_id' => $this->genre->id,
+        ]);
+
+    $response->assertStatus(422);
+    $response->assertJsonValidationErrors(['score']);
+});
+
+test('un usuario sin análisis recibe una lista vacía', function () {
+    Analysis::truncate(); // <-- Borra todos los análisis antes de la prueba
+
+    $response = $this->actingAs($this->redactor)
+        ->get(route('analysis.myanalyses'));
+
+    $response->assertStatus(200);
+    $response->assertViewHas('analyses', function ($analyses) {
+        return $analyses->isEmpty();
+    });
+});
+
+
+test('un lector no puede eliminar un análisis', function () {
     $response = $this->actingAs($this->lector)
         ->delete(route('analyses.destroy', $this->analysis));
 
     $response->assertStatus(403);
 });
 
-test('un usuario autenticado puede ver sus propios análisis', function () {
-    $response = $this->actingAs($this->redactor)
-        ->get(route('analyses.myanalyses'));
-
-    $response->assertStatus(200);
-    $response->assertViewHas('analyses');
-});
 

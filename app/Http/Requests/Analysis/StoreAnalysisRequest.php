@@ -14,7 +14,7 @@ class StoreAnalysisRequest extends FormRequest
         return [
             'title' => 'required|string|min:10|max:255',
             'content' => 'required|string|min:10|max:500',
-            'score' => 'required|min:0|max:100',
+            'score' => 'required|integer|min:0|max:100',
             'console' => 'required|string|in:PlayStation,Xbox,PC,Switch',
             'type' => 'required|string|in:Review,Retro,News',
             'genre_id' => 'required|exists:genres,id',

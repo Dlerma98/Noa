@@ -30,14 +30,14 @@
             @endauth
 
             @auth
-                @if(auth()->user()->hasAnyRole('redactor', 'admin') && auth()->user()->posts->count() > 0)
+                @if(auth()->user()->hasAnyRole('redactor', 'admin'))
                     <a href="{{ route('posts.myposts') }}"
                        class="px-3 py-2 {{ request()->routeIs('posts.myposts') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
                         Mis Posts
                     </a>
                 @endif
 
-                    @if(auth()->user()->hasAnyRole('redactor', 'admin') && auth()->user()->analyses->count() > 0)
+                    @if(auth()->user()->hasAnyRole('redactor', 'admin'))
                         <a href="{{ route('analysis.myanalyses') }}"
                            class="px-3 py-2 {{ request()->routeIs('analysis.myanalyses') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
                             Mis Análisis
@@ -77,24 +77,40 @@
     </div>
 
     <!-- Menú móvil -->
-    <div x-show="mobileMenu" @click.away="mobileMenu = false" class="md:hidden">
-        <a href="{{ route('posts.index') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
+    <div class="hidden md:flex space-x-8">
+        <a href="{{ route('posts.index') }}"
+           class="px-3 py-2 {{ request()->routeIs('posts.index') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
             Inicio
         </a>
-        <a href="{{ route('analyses.index') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
+
+        <a href="{{ route('analyses.index') }}"
+           class="px-3 py-2 {{ request()->routeIs('analyses.index') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
             Análisis
-        </a>
-        <a href="{{ route('genres.index') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
-            Géneros
         </a>
 
         @auth
-            <a href="{{ route('posts.myposts') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
-                Mis Posts
-            </a>
-            <a href="{{ route('analysis.myanalyses') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
-                Mis Análisis
-            </a>
+            @if(auth()->user()->hasRole('admin'))
+                <a href="{{ route('genres.index') }}"
+                   class="px-3 py-2 {{ request()->routeIs('genres.index') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
+                    Géneros
+                </a>
+            @endif
+        @endauth
+
+        @auth
+            @if(auth()->user()->hasAnyRole('redactor', 'admin'))
+                <a href="{{ route('posts.myposts') }}"
+                   class="px-3 py-2 {{ request()->routeIs('posts.myposts') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
+                    Mis Posts
+                </a>
+            @endif
+
+            @if(auth()->user()->hasAnyRole('redactor', 'admin'))
+                <a href="{{ route('analysis.myanalyses') }}"
+                   class="px-3 py-2 {{ request()->routeIs('analysis.myanalyses') ? 'text-sky-500' : 'text-slate-600 transition-colors hover:text-sky-500 dark:text-slate-400 dark:hover:text-sky-500' }}">
+                    Mis Análisis
+                </a>
+            @endif
 
             <a href="{{ route('profile.show') }}" class="block px-3 py-2 text-gray-700 dark:text-gray-300">
                 Perfil

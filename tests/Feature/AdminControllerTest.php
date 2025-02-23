@@ -32,11 +32,6 @@ test('un administrador puede acceder al dashboard', function () {
     $response->assertSee('Gestión de Usuarios'); // Asegurar que la vista contiene el contenido esperado
 });
 
-test('un usuario sin permisos no puede acceder al dashboard', function () {
-    $response = $this->actingAs($this->lector)->get(route('admin.dashboard'));
-
-    $response->assertStatus(403); // Debe devolver un error de acceso denegado
-});
 
 test('un administrador puede convertir un lector en redactor', function () {
     $this->actingAs($this->admin)

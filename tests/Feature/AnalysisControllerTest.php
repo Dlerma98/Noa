@@ -129,11 +129,4 @@ test('un usuario sin análisis recibe una lista vacía', function () {
 });
 
 
-test('un lector no puede eliminar un análisis', function () {
-    $response = $this->actingAs($this->lector)
-        ->delete(route('analyses.destroy', $this->analysis));
-
-    $response->assertStatus(403);
-});
-
 

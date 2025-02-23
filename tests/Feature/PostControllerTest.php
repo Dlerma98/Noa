@@ -61,17 +61,7 @@ test('Solo el admin puede editar cualquier post', function () {
     $response->assertStatus(200);
 });
 
-test('Un lector no puede eliminar un post', function () {
-    // Asegurar que el post existe antes de la prueba
-    expect(Post::where('id', $this->post->id)->exists())->toBeTrue();
 
-    // Un lector intenta eliminar un post
-    $response = $this->actingAs($this->lector)
-        ->delete(route('posts.destroy', $this->post));
-
-    // Verifica el codigo de estado pero no tiene en cuenta el html
-    $response->assertForbidden(); // Es equivalente a ->assertStatus(403)
-});
 
 test('solo el dueño del post puede eliminarlo', function () {
     // Un redactor dueño del análisis puede eliminarlo

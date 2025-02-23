@@ -54,22 +54,34 @@ test('una reacción pertenece a un comentario', function () {
     expect($reaction->comment->id)->toBe($this->comment->id);
 });
 
-test('un usuario solo puede reaccionar una vez por comentario', function () {
-    CommentReaction::factory()->create([
-        'comment_id' => $this->comment->id,
-        'user_id' => $this->user->id,
+test('un usuario puede reaccionar varias veces a un comentario', function () {
+    // Crear un comentario y un usuario
+    $comment = \App\Models\Comment::factory()->create();
+    $user = \App\Models\User::factory()->create();
+
+    // El usuario reacciona con "love"
+    \App\Models\CommentReaction::create([
+        'comment_id' => $comment->id,
+        'user_id' => $user->id,
         'reaction_type' => 'love',
     ]);
 
-    $this->expectException(\Illuminate\Database\QueryException::class);
-
-    // Intentar crear otra reacción del mismo usuario al mismo comentario
-    CommentReaction::create([
-        'comment_id' => $this->comment->id,
-        'user_id' => $this->user->id,
+    // El usuario reacciona con "angry" (antes fallaba, ahora debe permitirse)
+    \App\Models\CommentReaction::create([
+        'comment_id' => $comment->id,
+        'user_id' => $user->id,
         'reaction_type' => 'angry',
     ]);
+
+    // Contar las reacciones del usuario en el comentario
+    $reactionsCount = \App\Models\CommentReaction::where('comment_id', $comment->id)
+        ->where('user_id', $user->id)
+        ->count();
+
+    // El usuario debería tener al menos 2 reacciones registradas en el comentario
+    expect($reactionsCount)->toBeGreaterThan(1);
 });
+
 
 test('solo se pueden usar reacciones válidas', function () {
     $this->expectException(\Illuminate\Database\QueryException::class);

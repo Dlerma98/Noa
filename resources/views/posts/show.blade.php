@@ -63,32 +63,37 @@
         </div>
 
         {{-- Formulario para agregar comentarios --}}
-        @auth
-            <div class="mt-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Agregar un comentario</h3>
-                <form action="{{ route('comments.store') }}" method="POST" class="mt-4">
-                    @csrf
-                    <input type="hidden" name="post_id" value="{{ $post->id }}">
-                    <textarea name="content" rows="3" required
-                              class="w-full p-2 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                    <button type="submit"
-                            class="mt-2 px-4 py-2 bg-blue-300 text-black rounded-lg shadow hover:bg-blue-700 hover:text-white">
-                        Comentar
-                    </button>
-                </form>
-            </div>
-        @endauth
+            {{-- Formulario para agregar comentarios --}}
+            @auth
+                <div class="mt-6">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white">Agregar un comentario</h3>
+                    <form action="{{ route('comments.store') }}" method="POST" class="mt-3">
+                        @csrf
+                        <input type="hidden" name="post_id" value="{{ $post->id }}">
+                        <textarea name="content" rows="2" required
+                                  class="w-full p-2 text-sm border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        <button type="submit"
+                                class="mt-2 px-3 py-1 bg-blue-300 text-black text-xs rounded-lg shadow hover:bg-blue-700 hover:text-white">
+                            Comentar
+                        </button>
+                    </form>
+                </div>
+            @endauth
 
-        {{-- Lista de comentarios --}}
-            <div class="mt-8">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Comentarios</h3>
+            {{-- Lista de comentarios --}}
+            <div class="mt-6">
+                <h3 class="text-base font-semibold text-gray-900 dark:text-white">Comentarios</h3>
 
                 @if($post->comments->where('parent_id', null)->isEmpty())
-                    <p class="mt-4 text-gray-500">No hay comentarios aún. Sé el primero en comentar.</p>
+                    <p class="mt-3 text-sm text-gray-500">No hay comentarios aún. Sé el primero en comentar.</p>
                 @else
-                    @foreach($post->comments->where('parent_id', null) as $comment)
-                        @include('components.comment', ['comment' => $comment])
-                    @endforeach
+                    <div class="space-y-3">
+                        @foreach($post->comments->where('parent_id', null) as $comment)
+                            <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg shadow-md max-w-lg">
+                                @include('components.comment', ['comment' => $comment])
+                            </div>
+                        @endforeach
+                    </div>
                 @endif
             </div>
 

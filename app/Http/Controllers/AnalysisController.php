@@ -58,7 +58,7 @@ class AnalysisController extends Controller
 
 
     public function myAnalyses() {
-        $analyses = Analysis::where('user_id', auth()->user()->id)->get();
+        $analyses = Analysis::ownedBy(auth()->id())->get();
         return view('analyses.myanalyses', compact('analyses'));
     }
 

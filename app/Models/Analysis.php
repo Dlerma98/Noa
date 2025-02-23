@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\OrderByCreationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,5 +23,15 @@ class Analysis extends Model
     public function genre()
     {
         return $this->belongsTo(Genre::class);
+    }
+
+    public function scopeOwnedBy($query, $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrderByCreationScope);
     }
 }

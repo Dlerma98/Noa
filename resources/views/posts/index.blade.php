@@ -12,7 +12,7 @@
     <div class="container mx-auto py-10">
         <h1 class="text-4xl font-bold mb-6 text-center">Listado de noticias</h1>
         @auth
-            @if(auth()->user()->hasRole('redactor') || auth()->user()->hasRole('admin'))
+            @if(auth()->user()->hasAnyRole('redactor','admin'))
                 <div class="flex items-center justify-center mb-6">
                     <a href="{{ route('posts.create') }}"
                        class="group rounded-full bg-sky-600 p-2 text-sky-100 shadow-lg duration-300 hover:bg-sky-700 active:bg-sky-800">

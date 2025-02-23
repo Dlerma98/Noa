@@ -6,10 +6,13 @@ use App\Http\Requests\Analysis\StoreAnalysisRequest;
 use App\Http\Requests\Analysis\UpdateAnalysisRequest;
 use App\Models\Analysis;
 use App\Models\Genre;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
 class AnalysisController extends Controller
 {
+    use AuthorizesRequests;
     public function index()
     {
 
@@ -61,6 +64,7 @@ class AnalysisController extends Controller
 
     public function edit(Analysis $analysis)
     {
+        $this->authorize('update', $analysis);
         $genres = Genre::all();
         return view('analyses.edit', compact('analysis','genres'));
     }
@@ -77,6 +81,7 @@ class AnalysisController extends Controller
 
     public function destroy(Analysis $analysis)
     {
+        $this->authorize('destroy', $analysis);
         $analysis -> delete();
         return redirect()->route('analyses.index')->with('status', 'Analysis eliminado exitosamente!');
     }

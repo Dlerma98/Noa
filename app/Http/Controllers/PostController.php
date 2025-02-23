@@ -8,7 +8,6 @@ use App\Http\Requests\Post\UpdatePostRequest;
 use App\Jobs\GeneratePostPDF;
 use App\Models\Genre;
 use App\Models\Post;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,7 +38,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        // Validar si el usuario tiene el rol de redactor
+
         if (!auth()->user()->hasAnyRole(['admin', 'redactor'])) {
             abort(403, 'No tienes permiso para crear posts.');
         }

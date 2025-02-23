@@ -36,7 +36,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id && $user->hasRole('redactor') || $user->hasRole('admin');
+        return ($user->id === $post->user_id && $user->hasRole('redactor')) || $user->hasRole('admin');
     }
 
     /**
@@ -44,7 +44,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        return $user->id === $post->user_id  && $user->hasRole('redactor') || $user->hasRole('admin');
+        return ($user->id === $post->user_id && $user->hasRole('redactor')) || $user->hasRole('admin');
     }
 
     /**

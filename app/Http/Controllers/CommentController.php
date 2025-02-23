@@ -9,7 +9,7 @@ class CommentController extends Controller
 {
     public function store(Request $request)
     {
-        {
+      
             $request->validate([
                 'post_id' => 'required|exists:posts,id',
                 'content' => 'required|string|min:5|max:1000',
@@ -19,11 +19,10 @@ class CommentController extends Controller
             Comment::create([
                 'post_id' => $request->post_id,
                 'user_id' => auth()->id(),
+                'parent_id' => $request->parent_id,
                 'content' => $request->content,
-                'parent_id' => $request->parent_id
             ]);
 
             return back()->with('success', 'Comentario agregado.');
-        }
     }
 }

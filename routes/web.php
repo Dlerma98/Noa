@@ -13,16 +13,10 @@ use App\Http\Controllers\ProfileController;
 
 //  Rutas protegidas para usuarios autenticados
 
-    //  Rutas solo para Administradores
-    Route::middleware(['role:admin'])->group(function () {
-        Route::resource('genres', GenreController::class);
-        Route::resource('users', ProfileController::class);
-        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-        Route::patch('/admin/make-redactor/{user}', [AdminController::class, 'makeRedactor'])->name('admin.makeRedactor');
-    });
 
-    //  Rutas solo para Redactores
-    Route::middleware(['role:redactor'])->group(function () {
+
+    //  Rutas solo para Redactores y administradores
+    Route::middleware(['role:admin|redactor'])->group(function () {
         Route::resource('posts', PostController::class)->except(['index', 'show']);
 
         Route::resource('analyses', AnalysisController::class)->except(['index', 'show']);
@@ -30,6 +24,16 @@ use App\Http\Controllers\ProfileController;
         Route::get('myposts', [PostController::class, 'myPosts'])->name('posts.myposts');
         Route::get('myanalyses', [AnalysisController::class, 'myAnalyses'])->name('analysis.myanalyses');
     });
+
+//  Rutas solo para Administradores
+Route::middleware(['role:admin'])->group(function () {
+    Route::resource('genres', GenreController::class);
+    Route::resource('users', ProfileController::class);
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::patch('/admin/make-redactor/{user}', [AdminController::class, 'makeRedactor'])->name('admin.makeRedactor');
+    Route::patch('/admin/make-lector/{user}', [AdminController::class, 'makeLector'])->name('admin.makeLector');
+
+});
 
     //  Rutas del Perfil del Usuario (para cualquier autenticado)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

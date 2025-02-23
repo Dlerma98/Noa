@@ -32,9 +32,15 @@
                                     Convertir en Redactor
                                 </button>
                             </form>
-                        @else
-                            <span class="text-green-600">Ya es Redactor</span>
-                        @endif
+                            @elseif ($user->hasRole('redactor'))
+                            <form action="{{ route('admin.makeLector', $user) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded">
+                                    Convertir en Lector
+                                </button>
+                            </form>
+                            @endif
                     </td>
                 </tr>
             @endforeach

@@ -38,6 +38,10 @@ class AnalysisController extends Controller
 
     public function store(StoreAnalysisRequest $request)
     {
+        if (!auth()->user()->hasAnyRole(['admin', 'redactor'])) {
+            abort(403, 'No tienes permiso para crear posts.');
+        }
+
         $data = $request->validated();
         $data['user_id'] = auth()->id();
         $data['thumbnail'] = null; // Se actualizará después con Livewire

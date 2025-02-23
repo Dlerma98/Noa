@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
         Event::listen(
             PostPublished::class,
             SendPostPublishedEmail::class,

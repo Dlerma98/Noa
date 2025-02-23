@@ -40,7 +40,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         // Validar si el usuario tiene el rol de redactor
-        if (!auth()->user()->hasRole('redactor')) {
+        if (!auth()->user()->hasAnyRole(['admin', 'redactor'])) {
             abort(403, 'No tienes permiso para crear posts.');
         }
 

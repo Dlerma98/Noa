@@ -11,13 +11,8 @@
 @section('content')
     <div class="container mx-auto py-10">
         <h1 class="text-4xl font-bold mb-6 text-center">Listado de noticias</h1>
-        @livewire('genre-filter')
-        @if($posts->isEmpty())
-            <h1 class="text-2xl font-semibold mb-6 text-center">No hay Posts disponibles.</h1>
-        @endif
-
         @auth
-            @if(auth()->user()->hasRole('redactor'))
+            @if(auth()->user()->hasRole('redactor') || auth()->user()->hasRole('admin'))
                 <div class="flex items-center justify-center mb-6">
                     <a href="{{ route('posts.create') }}"
                        class="group rounded-full bg-sky-600 p-2 text-sky-100 shadow-lg duration-300 hover:bg-sky-700 active:bg-sky-800">
@@ -31,7 +26,10 @@
                 </div>
             @endif
         @endauth
-
+        @livewire('genre-filter')
+        @if($posts->isEmpty())
+            <h1 class="text-2xl font-semibold mb-6 text-center">No hay Posts disponibles.</h1>
+        @endif
 
         <!-- Lista de Posts -->
         <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

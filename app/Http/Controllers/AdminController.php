@@ -9,8 +9,11 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        // Obtener todos los usuarios con rol "lector"
-        $users = User::role('lector')->get();
+        // Obtener todos los usuarios con rol "lector" y "redactor" (Uso whereHas dado que con rol solo podria escoger 1 solo rol)
+        $users = User::whereHas('roles', function ($query) {
+            $query->whereIn('name', ['lector', 'redactor']);
+        })->get();
+
         return view('admin.dashboard', compact('users'));
     }
 
@@ -20,7 +23,15 @@ class AdminController extends Controller
             $user->removeRole('lector');
             $user->assignRole('redactor');
         }
-
         return redirect()->route('admin.dashboard')->with('success', 'Usuario ahora es Redactor.');
+    }
+
+    public function makeLector(User $user)
+    {
+     if($user->hasRole('redactor')) {
+        $user->removeRole('redactor');
+        $user->assignRole('lector');
+    }
+        return redirect()->route('admin.dashboard')->with('success', 'Usuario ahora es Lector.');
     }
 }

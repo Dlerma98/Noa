@@ -12,7 +12,7 @@ class CommentController extends Controller
         {
             $request->validate([
                 'post_id' => 'required|exists:posts,id',
-                'content' => 'required|string|max:1000',
+                'content' => 'required|string|min:5|max:1000',
                 'parent_id' => 'nullable|exists:comments,id' // Permite respuestas
             ]);
 

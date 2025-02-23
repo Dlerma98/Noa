@@ -20,13 +20,8 @@ class DatabaseSeeder extends Seeder
             GenreSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            PostSeeder::class,
+            AnalysisSeeder::class,
         ]);
-
-        User::factory()->create([
-                'name' => 'Test User',
-                'email' => 'test@example.com',
-        ]);
-        Post::factory(10)->create();
-        Analysis::factory(10)->create();
     }
 }

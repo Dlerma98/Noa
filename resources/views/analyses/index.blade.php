@@ -61,6 +61,9 @@
                     </div>
                 @endforeach
             </div>
+                <div class="mt-6 flex justify-center">
+                    {{ $analyses->links() }}
+                </div>
     </div>
 @endsection
 

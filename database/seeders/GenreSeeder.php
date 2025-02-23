@@ -17,7 +17,7 @@ class GenreSeeder extends Seeder
         $genres = ['Action', 'Adventure', 'RPG', 'Strategy', 'Horror', 'Simulation', 'Sports'];
 
         foreach ($genres as $genre) {
-            Genre::updateOrInsert(['name' => $genre]); // Correcto
+            Genre::updateOrInsert(['name' => $genre]);
         }
     }
 }

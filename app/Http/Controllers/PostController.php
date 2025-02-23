@@ -84,6 +84,7 @@ class PostController extends Controller
     }
 
     public function myPosts() {
+
         $posts = Post::ownedBy(auth()->id())->get();
         return view('posts.myposts', compact('posts'));
     }

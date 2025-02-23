@@ -16,7 +16,7 @@ use App\Http\Controllers\ProfileController;
 
 
     //  Rutas solo para Redactores y administradores
-    Route::middleware(['role:admin|redactor'])->group(function () {
+    Route::middleware(['auth','role:admin|redactor'])->group(function () {
         Route::resource('posts', PostController::class)->except(['index', 'show']);
 
         Route::resource('analyses', AnalysisController::class)->except(['index', 'show']);
@@ -26,7 +26,7 @@ use App\Http\Controllers\ProfileController;
     });
 
 //  Rutas solo para Administradores
-Route::middleware(['role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('genres', GenreController::class);
     Route::resource('users', ProfileController::class);
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');

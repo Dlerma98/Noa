@@ -187,5 +187,7 @@ return [
          */
 
         'store' => 'default',
+
+        'redirect_to' => null,
     ],
 ];

@@ -26,7 +26,7 @@ class GenreController extends Controller
        $data = $request->validated();
        $genre = Genre::create($data);
 
-        return redirect()->route('genres.index')->with('success', 'Género creado con éxito.');
+        return redirect()->route('genres.index')->with('status', 'Género creado con éxito.');
     }
 
     public function edit(Genre $genre)
@@ -42,12 +42,12 @@ class GenreController extends Controller
 
         $genre->update($request->all());
 
-        return redirect()->route('genres.index')->with('success', 'Género actualizado con éxito.');
+        return redirect()->route('genres.index')->with('status', 'Género actualizado con éxito.');
     }
 
     public function destroy(Genre $genre)
     {
         $genre->delete();
-        return redirect()->route('genres.index')->with('success', 'Género eliminado.');
+        return redirect()->route('genres.index')->with('status', 'Género eliminado.');
     }
 }

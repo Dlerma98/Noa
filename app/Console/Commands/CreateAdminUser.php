@@ -41,11 +41,14 @@ class CreateAdminUser extends Command
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
         // Crear los permisos
-        Permission::firstOrCreate(['name' => 'crear generos']);
+        Permission::firstOrCreate(['name' => 'crear generos, posts y analisis']);
         Permission::firstOrCreate(['name' => 'administrar usuarios']);
+        Permission::firstOrCreate(['name' => 'editar posts y analisis']);
+        Permission::firstOrCreate(['name' => 'eliminar posts y analisis']);
 
         // Asignar permisos al rol de admin
-        $adminRole->givePermissionTo(['crear generos', 'administrar usuarios']);
+        $adminRole->givePermissionTo(['crear generos, posts y analisis', 'administrar usuarios', 'editar posts y analisis',
+            'eliminar posts y analisis']);
 
         // Crear el usuario administrador
         $admin = User::create([

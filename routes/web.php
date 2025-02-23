@@ -33,10 +33,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 });
 
-    //  Rutas del Perfil del Usuario (para cualquier autenticado)
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'logout'])->name('profile.logout');
+
 
 
 
@@ -59,6 +56,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    //  Rutas del Perfil del Usuario (para cualquier autenticado)
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'logout'])->name('profile.logout');
 
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::post('/comments/reactions', [CommentReactionController::class, 'store'])->name('comments.reactions.store');

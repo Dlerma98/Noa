@@ -91,3 +91,37 @@ test('UpdateAnalysisRequest rechaza una consola inválida', function () {
     expect($validator->fails())->toBeTrue();
     expect($validator->errors()->has('console'))->toBeTrue();
 });
+
+test('UpdateAnalysisRequest rechaza un título demasiado largo', function () {
+    $data = [
+        'title' => str_repeat('A', 256), // Excede el límite de 255 caracteres
+        'content' => 'Contenido válido con más de 30 caracteres.',
+        'score' => 85,
+        'console' => 'PC',
+        'type' => 'Retro',
+        'genre_id' => \App\Models\Genre::factory()->create()->id,
+    ];
+
+    $request = new UpdateAnalysisRequest();
+    $validator = Validator::make($data, $request->rules());
+
+    expect($validator->fails())->toBeTrue();
+    expect($validator->errors()->has('title'))->toBeTrue();
+});
+
+test('UpdateAnalysisRequest rechaza un contenido demasiado largo', function () {
+    $data = [
+        'title' => 'Título válido',
+        'content' => str_repeat('A', 501), // Excede el límite de 500 caracteres
+        'score' => 85,
+        'console' => 'PC',
+        'type' => 'Retro',
+        'genre_id' => \App\Models\Genre::factory()->create()->id,
+    ];
+
+    $request = new UpdateAnalysisRequest();
+    $validator = Validator::make($data, $request->rules());
+
+    expect($validator->fails())->toBeTrue();
+    expect($validator->errors()->has('content'))->toBeTrue();
+});

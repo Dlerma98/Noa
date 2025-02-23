@@ -19,9 +19,10 @@ class AnalysisApiController extends Controller
      *     {
      *       "id": 1,
      *       "title": "Análisis del mercado",
-     *       "description": "Detalles del análisis",
-     *       "created_at": "2025-02-21 14:00:00",
-     *       "updated_at": "2025-02-21 15:00:00"
+     *      "content": => "Contenido del analisis que hemos creado anteriormente",
+     *      "score": => "75"
+     *      "console": => "Xbox"
+     *      "type": => "Review"
      *     }
      *   ]
      * }

@@ -67,3 +67,11 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+    // Ruta de la documentacion
+if (file_exists(public_path('docs/index.html'))) {
+    Route::get('/docs', function () {
+        return redirect('/docs/index.html');
+    });
+}
+
+

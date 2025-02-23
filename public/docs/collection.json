@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Noa api API de Posts y An\u00e1lisis",
-        "_postman_id": "71b987e6-cff5-44d5-b652-45008711de8a",
+        "_postman_id": "eb57c317-6c93-45ad-8eaf-fb80970152d2",
         "description": "Esta API proporciona acceso a posts y an\u00e1lisis.",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -49,7 +49,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"An\u00e1lisis del mercado\",\n      \"description\": \"Detalles del an\u00e1lisis\",\n      \"created_at\": \"2025-02-21 14:00:00\",\n      \"updated_at\": \"2025-02-21 15:00:00\"\n    }\n  ]\n}",
+                            "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"An\u00e1lisis del mercado\",\n     \"content\": => \"Contenido del analisis que hemos creado anteriormente\",\n     \"score\": => \"75\"\n     \"console\": => \"Xbox\"\n     \"type\": => \"Review\"\n    }\n  ]\n}",
                             "name": ""
                         }
                     ]

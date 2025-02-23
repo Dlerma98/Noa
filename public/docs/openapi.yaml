@@ -17,45 +17,10 @@ paths:
         200:
           description: ''
           content:
-            application/json:
+            text/plain:
               schema:
-                type: object
-                example:
-                  data:
-                    -
-                      id: 1
-                      title: 'Análisis del mercado'
-                      description: 'Detalles del análisis'
-                      created_at: '2025-02-21 14:00:00'
-                      updated_at: '2025-02-21 15:00:00'
-                properties:
-                  data:
-                    type: array
-                    example:
-                      -
-                        id: 1
-                        title: 'Análisis del mercado'
-                        description: 'Detalles del análisis'
-                        created_at: '2025-02-21 14:00:00'
-                        updated_at: '2025-02-21 15:00:00'
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                          example: 1
-                        title:
-                          type: string
-                          example: 'Análisis del mercado'
-                        description:
-                          type: string
-                          example: 'Detalles del análisis'
-                        created_at:
-                          type: string
-                          example: '2025-02-21 14:00:00'
-                        updated_at:
-                          type: string
-                          example: '2025-02-21 15:00:00'
+                type: string
+                example: "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"Análisis del mercado\",\n     \"content\": => \"Contenido del analisis que hemos creado anteriormente\",\n     \"score\": => \"75\"\n     \"console\": => \"Xbox\"\n     \"type\": => \"Review\"\n    }\n  ]\n}"
       tags:
         - Análisis
       security: []
